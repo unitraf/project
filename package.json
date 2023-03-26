@@ -1,10 +1,15 @@
 {
+  "homepage":"./",
   "name": "erp-unitraf",
-  "version": "0.2.0",
+  "version": "0.1.0",
   "description": "Unitraf ERP",
   "main": "public/electron.js",
   "author": "Mamane",
-  "homepage": "https://github.com/unitraf/unitraf.git",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/unitraf/project.git"
+  },
+  
   "license": "MIT",
   "private": true,
   "dependencies": {
@@ -16,6 +21,7 @@
     "@testing-library/user-event": "^13.5.0",
     "apexcharts": "^3.37.1",
     "cross-env": "^7.0.3",
+    "electron-is-dev": "^2.0.0",
     "electron-updater": "^5.3.0",
     "firebase": "^9.17.1",
     "moment": "^2.29.4",
@@ -41,7 +47,6 @@
     "win": "electron-builder -w",
     "make-cert": "electron-builder create-self-signed-cert -p unitraf",
     "deploy": "electron-builder build -w -p onTagOrDraft"
-  
   },
   "build": {
     "appId": "com.unitraf.erp",
@@ -69,7 +74,6 @@
       "category": "Network"
     }
   },
-
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -92,7 +96,7 @@
     "concurrently": "^7.6.0",
     "electron": "^23.1.0",
     "electron-builder": "^23.6.0",
-    "electron-is-dev": "^2.0.0",
+    "electron-log": "^4.4.8",
     "nodemon": "^2.0.20",
     "wait-on": "^7.0.1"
   }

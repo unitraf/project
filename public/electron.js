@@ -1,8 +1,11 @@
 const { app, BrowserWindow, webContents, ipcMain } = require("electron");
 const path = require("path");
 const fs = require("fs");
+const updater = require('./updater')
 
 const isDev = require("electron-is-dev");
+
+
 let win;
 let printer;
 let splash;
@@ -65,6 +68,7 @@ function createWindow() {
       win.show();
       splash.close();
     }, 3000);
+    setTimeout(updater.check, 5000);
   });
   // Open the DevTools.
   if (isDev) {

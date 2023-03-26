@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, createHashRouter } from "react-router-dom";
 import Root from "../pages/root/Root";
 import ErrorPage from "../pages/root/ErrorPage";
 import Transit from "../pages/transit/Transit";
@@ -41,7 +41,7 @@ import EditArticle, { destroyArticleAction, editArticleAction } from "../pages/a
 import NewPrestation, { newPrestationAction } from "../pages/prestation/NewPrestation";
 import NewFacture, { newFactureAction } from "../pages/facturation/NewFacture";
 
-export const router = createBrowserRouter([
+export const router = createHashRouter([
   {
     path: "/",
     element: <Root />,

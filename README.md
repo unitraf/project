@@ -1,10 +1,10 @@
 # Getting Started with Create React App
-echo "# unitraf" >> README.md
+echo "# project" >> README.md
 git init
 git add README.md
 git commit -m "first commit"
 git branch -M main
-git remote add origin https://github.com/unitraf/unitraf.git
+git remote add origin https://github.com/unitraf/project.git
 git push -u origin main
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
