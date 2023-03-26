@@ -1,16 +1,17 @@
-const { app, BrowserWindow, webContents, ipcMain } = require("electron");
+const { app, BrowserWindow,  ipcMain, dialog } = require("electron");
 const path = require("path");
 const fs = require("fs");
 const updater = require('./updater')
-
+const { autoUpdater } = require("electron-updater");
 const isDev = require("electron-is-dev");
 
-
+// autoUpdater.autoDownload = false;
 let win;
 let printer;
 let splash;
 
 function createWindow() {
+  
   // Create the browser window.
   const splash = new BrowserWindow({
     icon: path.join(__dirname, "logo512.png"),
@@ -67,8 +68,9 @@ function createWindow() {
     setTimeout(() => {
       win.show();
       splash.close();
+      autoUpdater.checkForUpdates();
     }, 3000);
-    setTimeout(updater.check, 5000);
+    // setTimeout(updater.check, 5000);
   });
   // Open the DevTools.
   if (isDev) {
@@ -134,7 +136,46 @@ ipcMain.on("print-minute", (e) => {
     console.log("Print Initiate");
   });
 });
+// ------------------------------
+autoUpdater.on('error', (error) => {
+  dialog.showErrorBox('Error: ', error == null ? "unknown" : (error.stack || error).toString())
+})
 
+autoUpdater.on('update-available', () => {
+ 
+  win.webContents.send('update-available',"'update-available'")
+  dialog.showMessageBox({
+    type: 'info',
+    title: ' Mise à jour',
+    message: 'Nouvelle mise à jour disponible, télécharger maintenant?',
+    buttons: ['Oui', 'Non']
+  }).then((buttonIndex) => {
+    if (buttonIndex === 0) {
+      autoUpdater.downloadUpdate()
+      win.webContents.send('downloadUpdate',"downloadUpdate")
+    }
+    else {
+     console.log("No Update");
+    }
+  })
+})
+
+autoUpdater.on('update-not-available', () => {
+  dialog.showMessageBox({
+    title: 'No Updates',
+    message: 'Current version is up-to-date.'
+  })
+})
+
+autoUpdater.on('update-downloaded', () => {
+  dialog.showMessageBox({
+    title: 'Mise à jour',
+    message: "Installation des mises à jour, l'application sera fermer..."
+  }).then(() => {
+    win.webContents.send('update-downloaded',"update-downloaded")
+    setImmediate(() => autoUpdater.quitAndInstall())
+  })
+})
 // Use default printing options
 // worker.webContents.printToPDF({}).then((data) {
 //     fs.writeFile(pdfPath, data, function (error) {

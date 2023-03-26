@@ -1,5 +1,13 @@
 const { contextBridge, ipcRenderer} = require("electron");
-
+ipcRenderer.on('update-available', (e,arg)=>
+console.log(arg)
+)
+ipcRenderer.on('downloadUpdate', (e,arg)=>
+console.log(arg)
+)
+ipcRenderer.on('update-downloaded', (e,arg)=>
+console.log(arg)
+)
 // onClick={() => window.api.save(state)} a implementer
 contextBridge.exposeInMainWorld("api", {
   minimize: () => {
