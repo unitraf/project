@@ -1,0 +1,153 @@
+{
+    "dossier": "1",
+    "t1": "481",
+    "repertoire": "1",
+    "regime": "4000",
+    "nombre": "2000",
+    "type": "Camion",
+    "poids": "5400",
+    "position": "27101240",
+    "designation": "Super carburant",
+    "us": "l",
+    "license": "2",
+    "exo": "6",
+    "fob": "450000",
+    "fret": "1000",
+    "assurance": "4990",
+    "autres": "0",
+    "fvc": "2500",
+    "ri": "5000",
+    "fs": "32000",
+    "af": "0",
+    "check": "on",
+    "valeur": "455990",
+    "taxe": "39500",
+    "droits": "564026.5125",
+    "total": "603526.5125",
+    "createAt": "2023-03-15T19:45:05.908Z",
+    "carnet": {
+        "dossier": "1",
+        "burEntree": "Gaya (NE29)",
+        "burSortie": "Niamey Route (NE001)",
+        "provenance": "Bénin",
+        "numero": "481",
+        "date": "2023-01-11",
+        "sommier": "741",
+        "transport": "AAA  283 XX",
+        "quantite": "1100",
+        "poids": "15000",
+        "position": "24029000",
+        "designation": "Cigarettes Craven A"
+    },
+    "calculs": [
+        {
+            "DD": 10,
+            "checked": true,
+            "montant": 45599
+        },
+        {
+            "RSI": 1,
+            "checked": true,
+            "montant": 4559.9
+        },
+        {
+            "TVI": 1,
+            "checked": true,
+            "montant": 4559.9
+        },
+        {
+            "PCS": 0.8,
+            "checked": true,
+            "montant": 3647.92
+        },
+        {
+            "PC": 0.5,
+            "checked": true,
+            "montant": 2279.95
+        },
+        {
+            "PUA": 0.2,
+            "checked": true,
+            "montant": 911.98
+        },
+        {
+            "TVA": 19,
+            "checked": true,
+            "montant": 97467.8625
+        },
+        {
+            "DA": 75,
+            "checked": true,
+            "montant": 405000
+        }
+    ],
+    "pj": [
+        {
+            "type": "Bordereau",
+            "checked": true
+        },
+        {
+            "type": "Deprec",
+            "checked": true
+        },
+        {
+            "type": "Exonération",
+            "checked": false
+        },
+        {
+            "type": "License",
+            "checked": false
+        },
+        {
+            "type": "FactCom",
+            "checked": true
+        },
+        {
+            "type": "Colisage",
+            "checked": false
+        },
+        {
+            "type": "Assurance",
+            "checked": true
+        },
+        {
+            "type": "DispBIC",
+            "checked": false
+        },
+        {
+            "type": "Fiche",
+            "checked": false
+        },
+        {
+            "type": "NIF",
+            "checked": true
+        },
+        {
+            "type": "ARF",
+            "checked": false
+        },
+        {
+            "type": "CO",
+            "checked": false
+        },
+        {
+            "type": "FaFret",
+            "checked": false
+        }
+    ],
+    "date": "2023-01-02",
+    "client": {
+        "nom": "SONICHAR",
+        "email": "",
+        "bp": "78",
+        "tel": "",
+        "nif": "1760",
+        "compte": "411",
+        "adresse": "TCHIROZERINE/NIGER",
+        "exo": false
+    },
+    "document": "N/A",
+    "mode": "Maritime",
+    "origine": "N/A",
+    "transport": "N/A"
+}

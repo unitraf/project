@@ -1,0 +1,40 @@
+.listing {
+    position: relative;
+    /* z-index: 99; */
+}
+
+.listing-item {
+    display: none;
+    position: absolute;
+    z-index: 20;
+
+    right: 0px;
+    width: max-content;
+    max-height: 80px;
+    overflow: auto;
+    min-width: 55px;
+
+    box-shadow: var(--box-shadow);
+    border-radius: var(--border-radius);
+    background-color: white;
+    border: 1px solid var(--main-color);
+    font-size: 0.8rem;
+    color: var(--main-color);
+
+    text-align: center;
+    margin-top: 2px;
+
+}
+
+.actif {
+    display: block;
+    padding: 5px;
+}
+
+
+
+.listing .item:hover {
+    background-color: var(--second-bg);
+    color: var(--main-color);
+    box-shadow: 0 0px 1px hsl(0deg 0% 0% / 20%), 0 1px 2px hsl(0deg 0% 0% / 20%);
+}

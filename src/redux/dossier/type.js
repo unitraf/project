@@ -1,0 +1,4 @@
+export const ADD_DOSSIER = 'ADD_DOSSIER'
+export const DELETE_DOSSIER = 'DELETE_DOSSIER'
+export const UPDATE_DOSSIER = 'UPDATE_DOSSIER'
+export const GET_DOSSIERS = 'GET_DOSSIERS'

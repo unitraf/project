@@ -1,0 +1,27 @@
+body{
+    overflow: hidden;
+}
+
+.logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+    margin-top: 15px;
+    animation: movelogo 1.2s infinite ease-in-out;
+    overflow: hidden;
+}
+
+@keyframes movelogo {
+    0% {
+        transform: perspective(320px) rotateX(0deg) rotateY(0deg);
+    }
+
+    50% {
+        transform: perspective(320px) rotateX(0deg) rotateY(-180deg);
+    }
+
+    100% {
+        transform: perspective(320px) rotateX(0deg) rotateY(-360deg);
+    }
+}

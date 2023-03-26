@@ -1,0 +1,18 @@
+.dashboard{
+    
+}
+
+.dashboard fieldset div {
+    margin: 0;
+}
+
+.dashboard fieldset{
+    width: max-content;
+    height: max-content;
+    box-shadow: var(--box-shadow-light);
+}
+
+.chart{
+    display: flex;
+    flex-wrap: wrap;
+}

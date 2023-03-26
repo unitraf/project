@@ -1,0 +1,11 @@
+#bl-form fieldset{
+    margin: 5px 0;
+    box-shadow: var(--box-shadow-light);
+}
+
+
+
+#bl-form .table__wrapper{
+    margin-top: 0;
+    margin-bottom: 10px;
+}

@@ -1,0 +1,39 @@
+fieldset div {
+    width: 100%;
+    margin-top: 0;
+    text-align: center;
+    padding-bottom: 5px;
+ }
+
+ 
+ fieldset div table{
+    width: 100%;
+}
+
+fieldset .table__wrapper table th, .table td{
+    border: 1px solid var(--main-color);
+    font-size: 1rem;
+
+}
+fieldset .table__wrapper table th{
+    color: var(--main-color);
+    font-weight: bold;
+    background-color: white;
+}
+
+@media print {
+    /* @page {size: landscape;
+   
+    } */
+  @page{
+    margin: 5px;
+  }
+  .bl-footer{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: fixed;
+    bottom: 0;
+  }
+
+}

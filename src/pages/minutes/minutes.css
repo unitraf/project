@@ -1,0 +1,32 @@
+.minutes {
+    background-color: blueviolet;
+}
+
+.infos_right {
+    /* background-color: var(--second-bg); */
+    border-radius: var(--border-radius);
+    font-style: italic;
+    height: max-content;
+    color: var(--main-color);
+    padding: 5px;
+    margin-bottom: 15px;
+    box-shadow: 0 0px 1px hsl(0deg 0% 0% / 20%), 0 1px 2px hsl(0deg 0% 0% / 20%);
+}
+.infos_right p{
+    text-align: left;
+}
+.infos_right_val{
+    border-bottom: 1px dashed var(--main-color);
+}
+.infos_right h4{
+
+    text-align: center;
+}
+
+.fieldset{
+    box-shadow: 0 0px 1px hsl(0deg 0% 0% / 20%), 0 1px 2px hsl(0deg 0% 0% / 20%);
+    border: 0;
+    margin: -10px 2px 0 0;
+  
+    padding-bottom: 5px;
+}

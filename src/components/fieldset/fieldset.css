@@ -1,0 +1,15 @@
+fieldset{
+   font-size: 0.8rem;
+}
+legend{
+   font-size: 1rem;
+  
+}
+
+fieldset div {
+   width: 100%;
+   padding-bottom: 5px;
+}
+/* fieldset div table{
+   font-size: 1rem;
+} */

@@ -1,0 +1,38 @@
+.top {
+    display: flex;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 30px;
+    justify-content: center;
+    align-items: center;
+    box-shadow: var(--box-shadow);
+    z-index: 98;
+
+}
+
+.bottom {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    box-shadow: var(--box-shadow);
+    width: 100%;
+    height: 30px;
+}
+
+.root_content {
+    display: flex;
+   margin: 35px 0;
+
+}
+
+.margin_side_bar{
+    margin-left: 205px;
+}
+.outlet {
+    /* margin-left: 5px; */
+  
+   
+}

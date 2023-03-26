@@ -1,0 +1,105 @@
+/* MODAL */
+.modalBackground {
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+  }
+ .modalBody .formContents [class*="col-"] {
+    padding: 0;
+}
+  .modalContainer {
+    flex: 0 1 70%;
+    box-shadow: var(--box-shadow);
+    display: flex;
+    flex-direction: column;
+    
+  }
+  
+  .modalHeader {
+    display: flex;
+    /* width: max-content; */
+    /* flex-direction: column; */
+/* justify-content: center; */
+    background-color: var(--main-color);
+    padding: 5px 10px 10px 10px;
+    color: var(--txt-white);
+    border-radius: var(--border-radius);
+   margin-bottom: 5px;
+  }
+  
+  .modalHeader h2 {
+    margin: 0;
+    color: var(--txt-white);
+  }
+  .actionIcon svg {
+    margin: 5px;
+  }
+  .modalBody .formContents {
+    padding-top: 0;
+  }
+  .modalBody {
+    
+   background: var(--second-bg);
+    min-height: 150px;
+    max-height: 300px;
+    overflow: auto;
+    border-radius: var(--border-radius);
+    margin-bottom: 5px;
+    padding: 5px;
+  }
+
+  .modalFooter {
+    background: var(--second-bg);
+    padding: 5px;
+    /* color: var(--txt-white); */
+    text-align: center;
+    border-bottom-left-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
+    display: flex;
+    justify-content: flex-end;
+    border-top: 1px solid var(--main-color);
+    border-radius: 5px;
+    width: max-content;
+  }
+  
+   .modalBtn {
+    font-size: 0.8rem;
+    background: var(--main-color);
+    /* padding: 9px 5px; */
+    width: 70px;
+    color: var(--txt-white);
+       
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    border: 1px solid var(--second-color);
+  
+  }
+
+  .modalFooter .modalBtn {
+    font-size: 0.8rem;
+    background: var(--main-color);
+    padding: 5px 5px;
+    width: 90px;
+    color: var(--txt-white);
+    border: 0;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    border: 1px solid var(--second-color);
+    /* margin-left: 5px; */
+
+  }
+  
+  .modalBtn:hover {
+    background: var(--txt-white);
+    color: var(--main-color);
+    border: 1px solid var(--main-color);
+  }
+  /* END MODAL */
