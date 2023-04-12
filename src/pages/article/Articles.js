@@ -23,7 +23,7 @@ const link = [
   {
     icon: mdiPlus,
     content: "Rubrique",
-    route: "newClient",
+    route: "newRubrique",
   },
 ];
 const renderLink = (item, index) => (

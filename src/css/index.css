@@ -276,7 +276,7 @@ fieldset {
     box-shadow: var(--box-shadow-light);
     /* box-shadow: var(--box-shadow); */
         color: var(--txt-color);
-    text-transform: capitalize;
+    /* text-transform: capitalize; */
     /* font-weight: bold; */
     margin-bottom: 15px;
     border: none;
@@ -355,7 +355,7 @@ fieldset table {
     font-size: 0.8rem;
     background: var(--main-color);
     padding: 5px;
-    width: max-content;
+    /* width: max-content; */
     color: var(--txt-white);
     border: 0;
     box-shadow: var(--box-shadow-light);
@@ -368,6 +368,7 @@ fieldset table {
 
 .button:hover {
     background: var(--txt-white);
+    box-shadow: var(--box-shadow-light);
     color: var(--main-color);
     border: 1px solid var(--main-color);
 }
@@ -439,4 +440,11 @@ fieldset table {
 
 ::-webkit-scrollbar-thumb:hover {
     background: var(--second-color);
+}
+/* Supprimer les Flèches/Spinners */
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }

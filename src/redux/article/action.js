@@ -1,5 +1,5 @@
 
-import { ADD_ARTICLE, DELETE_ARTICLE, UPDATE_ARTICLE , } from "./type";
+import { ADD_ARTICLE, DELETE_ARTICLE, UPDATE_ARTICLE  } from "./type";
 
 export const addArticle = (article) => {
 
@@ -16,6 +16,7 @@ export const deleteArticle = (code) => {
     payload: code,
   };
 };
+;
 
 export const updateArticle = (updateArticle) => {
   return {
@@ -23,4 +24,5 @@ export const updateArticle = (updateArticle) => {
     payload: updateArticle,
   };
 };
+
 

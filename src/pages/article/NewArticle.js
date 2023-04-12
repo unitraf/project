@@ -27,7 +27,8 @@ const NewArticle = () => {
   return (
     <div>
       <div className="header-title form" >
-        Nouveau
+        Nouveau (Service)
+        
       </div>
       <ArticleForm article={article} setArticle={setArticle} />
     </div>

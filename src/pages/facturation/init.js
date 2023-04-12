@@ -5,22 +5,27 @@ import { annee, date } from "../../helpers/render"
 const secef ="...., statut(encours, terminé, envoyé, )"
 
 export const facture = {
-    nim:"IC01000228",
-    compteur:"400",
-    numero:"237",
+    nim:"IC01000228-1",
+    compteur:"",
+    numero:"",
     code:"1XXX-2XXX-3XXX-4XXX-5XXX-6XXX",
-    date:"",
-    heure:"",
+    date: moment(new Date()).format("YYYY-MM-DD"),
+    seconde:moment(new Date()).format("ss"),
+    heure:moment(new Date()).format("hh:mm"),
     dossier:"",
     annee:annee(new Date()),
-    echeance:moment().add(31, 'days').format("YYYY-MM-DD"),
+    client:{nom:""},
+    echeance:moment(new Date()).format("YYYY-MM-DD"),
   
-    secef :{},
-    reglement:"30",
+    reglement:"Comptant",
     paiement:"chèque",
+
+    valeur:"",
+    total:"",
     debours:"",
     interventions:"",
     tva:"",
     net:"",
-    statut:"En cours"
+    ht:"78",
+    status:"En cours"
 }

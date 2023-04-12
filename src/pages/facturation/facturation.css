@@ -1,0 +1,20 @@
+.details-table th ,.details-table td{
+    box-shadow: var(--box-shadow-light);
+    border: none;
+    font-size: 0.9rem;
+    
+
+}
+
+.details-table td{
+    color: var(--txt-color);
+}
+
+.details-table .rubrique, .details-table th{
+    font-style: italic;
+    color: var(--main-color);
+}
+.details-table tbody{
+
+    height: 30px;
+}

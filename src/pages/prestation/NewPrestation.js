@@ -127,7 +127,7 @@ const NewPrestation = () => {
       <td style={{ border: 0 }}></td>
       <td>Total</td>
       <td style={{ textAlign: "right", paddingInline: 10 }}>
-        {nombre(getTotal(prestations["Interventions"], "valeur"))}
+        {nombre(getTotal(prestations["interventions"], "valeur"))}
       </td>
     </tr>
   );
@@ -136,7 +136,7 @@ const NewPrestation = () => {
       <td style={{ border: 0 }}></td>
       <td>Total</td>
       <td style={{ textAlign: "right", paddingInline: 10 }}>
-        {nombre(getTotal(prestations["Débours"], "valeur"))}
+        {nombre(getTotal(prestations["débours"], "valeur"))}
       </td>
     </tr>
   );
@@ -190,7 +190,7 @@ const NewPrestation = () => {
         <PrestationForm prestation={prestation} setPrestation={setPrestation} />
         <div style={{ display: "flex" }}>
           {prestations!==0&&<div className="col-6">
-            {prestations["Débours"]&& (
+            {prestations["débours"]&& (
               <Fieldset
                 style={{ height: "fit-content" }}
                 legend="Débours"
@@ -198,21 +198,21 @@ const NewPrestation = () => {
                   <Table
                     headData={headData}
                     renderHead={renderHead}
-                    bodyData={prestations["Débours"]}
+                    bodyData={prestations["débours"]}
                     renderBody={renderBody}
                     renderFooter={renderFooterDebours}
                   />
                 }
               />
             )}
-            {prestations["Interventions"]&& (
+            {prestations["interventions"]&& (
               <Fieldset
                 legend="Interventions"
                 content={
                   <Table
                     headData={headData}
                     renderHead={renderHead}
-                    bodyData={prestations["Interventions"]}
+                    bodyData={prestations["interventions"]}
                     renderBody={renderBody}
                     renderFooter={renderFooterInterv}
                   />

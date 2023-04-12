@@ -38,13 +38,13 @@ const EditArticle = () => {
       actionData &&
       dispatch(updateArticle(actionData)) &&
       navigate(-1);
-  }, [actionData, dispatch, navigate, params.updateId]);
+  }, [actionData, params.updateId]);
   useEffect(() => {
     params.destroyId &&
       actionData &&
       dispatch(deleteArticle(actionData)) &&
       navigate(-1);
-  }, [actionData, dispatch, navigate, params.destroyId]);
+  }, [actionData, params.destroyId]);
 
   console.log(article);
   return (

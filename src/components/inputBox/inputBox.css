@@ -1,5 +1,5 @@
 /* RenderInput */
-.inputBox {
+.input-Box {
     display: flex;
     align-items: center;
     position: relative;
@@ -7,7 +7,7 @@
 
 }
 
-.inputBox input {
+.input-Box input {
     width: 100%;
     padding: 5px 5px;
     background-color: var(--main-bg);
@@ -27,7 +27,7 @@
 
 }
 
-.inputBox label {
+.input-Box label {
     color: var(--txt-color);
     position: absolute;
     text-align: center;
@@ -36,17 +36,16 @@
     pointer-events: none;
     transition: 0.2s ease-in;
 
-    /* top: -30px; */
-    left: 5px;
-    right: 5px;
-    /* margin: auto; */
+    top: -20px;
+    left: 10px;
+    right: 10px;
     color: var(--main-color);
-    font-size: 0.8rem;
+    font-size: 1rem;
     font-style: italic;
 }
 
-.inputBox input:focus~label,
-.inputBox input:valid~label {
+.input-Box input:focus~label,
+.input-Box input:valid~label {
     top: -20px;
     left: 10px;
     right: 10px;

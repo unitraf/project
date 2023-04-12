@@ -20,8 +20,8 @@ const link = [
   },
   {
     icon: mdiPlus,
-    content: "Nouveau",
-    route: "newClient",
+    content: "Type",
+    route: "type",
   },
 ];
 const renderLink = (item, index) => (

@@ -2,6 +2,7 @@ import {
   mdiDotsVertical,
   mdiDotsVerticalCircle,
   mdiFolderPlusOutline,
+  mdiPlusBox,
 } from "@mdi/js";
 import Icon from "@mdi/react";
 import React, { useState } from "react";
@@ -14,6 +15,8 @@ import TableT1 from "./TableT1";
 import { listMode, listStatus, listType } from "./init";
 import TableDdu from "./TableDdu";
 import TableMinute from "./TableMinute";
+import { removeClassName } from "../../helpers/fonctions";
+
 const content = [
   {
     icon: mdiFolderPlusOutline,
@@ -38,7 +41,8 @@ const content = [
 ];
 
 const DossierForm = (props) => {
-  const params = useParams()
+  const params = useParams();
+  
   const state = useSelector((state) => state);
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
@@ -94,6 +98,7 @@ const DossierForm = (props) => {
       key={index}
       onClick={() => {
         setDossier({ ...dossier, client: item });
+        removeClassName("listing-item", "actif");
       }}
     >
       <span className="col-4">{item.nom}</span>
@@ -139,12 +144,7 @@ const DossierForm = (props) => {
         {/* ligne 1 */}
         <div className="col-12" style={{ display: "flex", marginBottom: 20 }}>
           <div className="inputBox col-2">
-            <input
-              type="text"
-              name="id"
-              
-              defaultValue={dossier.id}
-            />
+            <input type="text" name="id" defaultValue={dossier.id} />
 
             <label htmlFor={"id"}>Sid</label>
           </div>
@@ -152,7 +152,6 @@ const DossierForm = (props) => {
             <input
               type="date"
               name="date"
-              
               value={dossier.date}
               onChange={handleChange}
             />
@@ -163,7 +162,6 @@ const DossierForm = (props) => {
             <input
               type="number"
               name="numero"
-              
               value={dossier.numero}
               onChange={handleChange}
               required
@@ -176,7 +174,6 @@ const DossierForm = (props) => {
             <input
               type="text"
               name="reference"
-              
               value={dossier.reference}
               onChange={handleChange}
               required
@@ -190,7 +187,6 @@ const DossierForm = (props) => {
             <input
               type="text"
               name="expediteur"
-              
               value={dossier.expediteur}
               onChange={handleChange}
             />
@@ -200,15 +196,28 @@ const DossierForm = (props) => {
             <input
               type="text"
               name="client"
-              
               value={dossier.client.nom}
               onChange={handleChange}
               required
             />
             <label htmlFor={"client"}>Destinataire</label>
-            <Listing content={clients} render={renderClient} />
+            <Listing
+              content={clients}
+              render={renderClient}
+              footer={
+                  <Icon
+                    path={mdiPlusBox}
+                    size={0.8}
+                    onClick={() =>
+                     {
+                        removeClassName("footer-item","actif")
+                        navigate("/clients/newClient", {from:dossier},)}
+                    }
+                  />
+                
+              }
+            />
           </div>
-         
         </div>
         {/* ligne 3 */}
         <div className="col-12" style={{ display: "flex", marginBottom: 20 }}>
@@ -216,7 +225,6 @@ const DossierForm = (props) => {
             <input
               type="text"
               name="document"
-              
               value={dossier.document}
               onChange={handleChange}
               required
@@ -227,7 +235,6 @@ const DossierForm = (props) => {
             <input
               type="text"
               name="mode"
-              
               value={dossier.mode}
               onChange={handleChange}
               required
@@ -239,32 +246,28 @@ const DossierForm = (props) => {
             <input
               type="text"
               name="transport"
-              
               value={dossier.transport}
               onChange={handleChange}
               required
             />
             <label htmlFor={"transport"}>Transporteur</label>
           </div>
-        
         </div>
         {/* ligne 4 */}
         <div className="col-12" style={{ display: "flex", marginBottom: 20 }}>
-        <div className="inputBox col-2">
+          <div className="inputBox col-2">
             <input
               type="text"
               name="origine"
-              
               value={dossier.origine}
               onChange={handleChange}
             />
             <label htmlFor={"origine"}>Origine</label>
           </div>
-        <div className="inputBox col-2">
+          <div className="inputBox col-2">
             <input
               type="text"
               name="provenance"
-              
               value={dossier.provenance}
               onChange={handleChange}
               required
@@ -275,7 +278,6 @@ const DossierForm = (props) => {
             <input
               type="date"
               name="depart"
-              
               value={dossier.depart}
               onChange={handleChange}
             />
@@ -285,13 +287,11 @@ const DossierForm = (props) => {
             <input
               type="date"
               name="arrivee"
-              
               value={dossier.arrivee}
               onChange={handleChange}
             />
             <label htmlFor={"arrivee"}>Arrivée</label>
           </div>
-         
         </div>
         {/* ligne 5 */}
         <div className="col-12" style={{ display: "flex", marginBottom: 20 }}>
@@ -299,7 +299,6 @@ const DossierForm = (props) => {
             <input
               type="number"
               name="nombre"
-              
               value={dossier.nombre}
               onChange={handleChange}
               required
@@ -311,7 +310,6 @@ const DossierForm = (props) => {
             <input
               type="text"
               name="type"
-              
               value={dossier.type}
               onChange={handleChange}
               required
@@ -323,27 +321,21 @@ const DossierForm = (props) => {
             <input
               type="text"
               name="description"
-              
               value={dossier.description}
               onChange={handleChange}
               required
             />
             <label htmlFor={"description"}>Description</label>
           </div>
-    
         </div>
         {/* ligne 6 */}
         <div className="col-12" style={{ display: "flex", marginBottom: 20 }}>
-    
-
           <div className="inputBox col-2">
             <input
               type="number"
               name="poids"
-              
               value={dossier.poids}
               onChange={handleChange}
-           
             />
             <label htmlFor={"poids"}>Poids Brut</label>
           </div>
@@ -351,10 +343,8 @@ const DossierForm = (props) => {
             <input
               type="number"
               name="poids"
-              
               value={dossier.poidsVol}
               onChange={handleChange}
-             
             />
             <label htmlFor={"poids"}>Poids Vol.</label>
           </div>
@@ -362,19 +352,16 @@ const DossierForm = (props) => {
             <input
               type="number"
               name="volume"
-              
               value={dossier.volume}
               onChange={handleChange}
-             
             />
             <label htmlFor={"volume"}>Volume</label>
           </div>
-         
+
           <div className="inputBox col-2">
             <input
               type="hidden"
               name="status"
-              
               value={dossier.status}
               onChange={handleChange}
               required
@@ -402,16 +389,25 @@ const DossierForm = (props) => {
         </div>
       </Form>
       {/* Onglets elements */}
-      {params.updateId&&
-      <div className="col-12" style={{ display: "flex", marginTop: 20 }}>
-        <Onglets
-          // icon={ongletMenuIcon}
-          menu={ongletOptions}
-          // active={setStatus}
-          ongletHeaders={["T1's", "Minute's", "Déclaration's"]}
-          ongletBody={[<TableT1 t1={dossier.t1} />,<TableMinute showModal={showModal} setShowModal={setShowModal} minute={dossier.minute} /> ,<TableDdu declaration={dossier.declaration} />]}
-        />
-      </div>}
+      {params.updateId && (
+        <div className="col-12" style={{ display: "flex", marginTop: 20 }}>
+          <Onglets
+            // icon={ongletMenuIcon}
+            menu={ongletOptions}
+            // active={setStatus}
+            ongletHeaders={["T1's", "Minute's", "Déclaration's"]}
+            ongletBody={[
+              <TableT1 t1={dossier.t1} />,
+              <TableMinute
+                showModal={showModal}
+                setShowModal={setShowModal}
+                minute={dossier.minute}
+              />,
+              <TableDdu declaration={dossier.declaration} />,
+            ]}
+          />
+        </div>
+      )}
     </>
   );
 };

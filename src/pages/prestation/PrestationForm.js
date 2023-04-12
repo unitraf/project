@@ -1,20 +1,26 @@
+import { mdiPlusBox } from "@mdi/js";
+import Icon from "@mdi/react";
 import React from "react";
 import { useSelector } from "react-redux";
 import { Form, useNavigate } from "react-router-dom";
 import Listing from "../../components/listing/Listing";
+import { removeClassName } from "../../helpers/fonctions";
 
 const PrestationForm = (props) => {
-  const articles = useSelector(state => state.articles)
+
+  const state = useSelector(state => state)
+  const {articles,rubriques }=state
   const { prestation, setPrestation } = props;
   const navigate = useNavigate();
   const handleChange = (e) => {
     setPrestation({ ...prestation, [e.target.name]: e.target.value });
   };
-  const renderLibelles = (item, index) => (
+  const renderArticles = (item, index) => (
     <div
       className="item"
       key={index}
       onClick={() => {
+        console.log(item);
         setPrestation(item);
       }}
     >
@@ -40,7 +46,17 @@ const PrestationForm = (props) => {
           <label htmlFor={"libelle"}>Libellé du Service</label>
           <Listing
             content={articles}
-            render={renderLibelles}
+            render={renderArticles}
+            footer={
+              <Icon
+                path={mdiPlusBox}
+                size={0.8}
+                onClick={() =>
+                 {
+                    removeClassName("footer-item","actif")
+                    navigate("/facturation/prestations")}
+                }
+              />}
           />
         </div>
         <div className="inputBox col-2">
@@ -69,6 +85,30 @@ const PrestationForm = (props) => {
             name="rubrique"
             autoComplete="off"
             value={prestation.rubrique}
+            onChange={handleChange}
+            required
+          />
+           <input
+            type="hidden"
+            name="compte"
+            autoComplete="off"
+            value={prestation.compte}
+            onChange={handleChange}
+            required
+          />
+           <input
+            type="hidden"
+            name="tva"
+            autoComplete="off"
+            value={prestation.tva}
+            onChange={handleChange}
+            required
+          />
+           <input
+            type="hidden"
+            name="unite"
+            autoComplete="off"
+            value={prestation.unite}
             onChange={handleChange}
             required
           />

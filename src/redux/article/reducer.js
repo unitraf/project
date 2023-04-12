@@ -1,7 +1,8 @@
-import { ADD_ARTICLE, DELETE_ARTICLE, UPDATE_ARTICLE } from "./type";
+import { ADD_ARTICLE, DELETE_ARTICLE, UPDATE_ARTICLE, UPDATE_RUBRIQUE, DELETE_RUBRIQUE,ADD_RUBRIQUE } from "./type";
 import data from "../../data/data_.json";
 const initialState = {
   articles: [],
+  rubrique:[]
 };
 
 const reducer = (
@@ -9,6 +10,7 @@ const reducer = (
   action
 ) => {
   switch (action.type) {
+    // Article
     case ADD_ARTICLE:
       console.log("ADD_ARTICLE", action.payload);
       let articles = [...state, action.payload];
@@ -33,6 +35,7 @@ const reducer = (
       });
 
       return updateArticle;
+     
     
     default:
       return state;

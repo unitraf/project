@@ -6,13 +6,13 @@ export const article ={
   valeur:"",
   rubrique:"",
   tva:"", 
-  actif:true,
+  active:"",
 }
 
-const rubrique ={
+export const rubrique ={
   code:"",
-  libelle:"",
-  tva:""
+  rubrique:"",
+  tva:"19"
 }
 
 export const listIntervention =[

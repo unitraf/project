@@ -22,9 +22,10 @@ table{
 }
 
 tbody > tr:hover{
-    background-color: var(--main-color);
-    color: var(--txt-white);
+    background-color: var(--second-bg);
+    color: var(--main-color);
     cursor: pointer;
+   
 }
 tbody > tr:focus{
     background-color: var(--main-color);
@@ -70,3 +71,13 @@ td> i:hover{
     color:var(--txt-white) ;
     background-color: var(--second-color);
 }
+
+.span-del{
+    opacity: 0;
+    }
+    
+    .span-del:hover{
+    opacity: 1;
+    color: red;
+    cursor: pointer;
+    }

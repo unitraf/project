@@ -1,0 +1,7 @@
+// Rubrique
+export const ADD_RUBRIQUE = 'ADD_RUBRIQUE'
+export const DELETE_RUBRIQUE = 'DELETE_RUBRIQUE'
+export const UPDATE_RUBRIQUE = 'UPDATE_RUBRIQUE'
+
+
+

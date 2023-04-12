@@ -1,0 +1,27 @@
+.clients{
+    /* background-color: aquamarine; */
+}
+
+.checkbox{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* font-style: italic; */
+    color: var(--main-color);
+    /* border: 1px solid var(--main-color); */
+    padding: 0 5px 0 0;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow-light)
+}
+.checkbox input{
+   height:15px;
+   width: 15px;
+    border-radius: 25px;
+ 
+    margin: 2px 5px 0;
+    cursor: pointer;
+    
+}
+
+
+/* Edit Client */

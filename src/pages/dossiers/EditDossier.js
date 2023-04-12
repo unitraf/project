@@ -40,7 +40,7 @@ const EditDossier = () => {
   }, [actionData, dispatch, navigate, params.destroyId]);
   useEffect(() => {
     if (actionData && params.updateId) {
-      let { client, t1, declaration, minute, bl,prestations } = dossier;
+      let { client, t1, declaration, minute, bl,prestations, facture } = dossier;
       let editDossier = {
         ...actionData,
         operateur: "admin",
@@ -49,7 +49,8 @@ const EditDossier = () => {
         declaration:declaration || [],
         minute:minute|| [],
         bl:bl || [],
-        prestations:prestations || []
+        prestations:prestations || [],
+        facture: facture || []
       };
       console.log(editDossier);
       dispatch(updateDossier(editDossier)) && navigate(-1);

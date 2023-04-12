@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { useActionData, useNavigate } from "react-router-dom";
+import { useActionData, useLocation, useNavigate } from "react-router-dom";
 import { addClient } from "../../redux/client/action";
 import ClientForm from "./ClientForm";
 
@@ -26,7 +26,6 @@ const NewClient = () => {
   const dispatch = useDispatch();
   const actionData = useActionData();
   const navigate = useNavigate();
-
   useEffect(() => {
     actionData && dispatch(addClient(actionData)) && navigate(-1);
   }, [actionData, dispatch, navigate]);

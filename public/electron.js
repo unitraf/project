@@ -5,7 +5,8 @@ const updater = require('./updater')
 const { autoUpdater } = require("electron-updater");
 const isDev = require("electron-is-dev");
 
-// autoUpdater.autoDownload = false;
+autoUpdater.autoDownload = true;
+autoUpdater.autoRunAppAfterInstall=true
 let win;
 let printer;
 let splash;
@@ -18,7 +19,7 @@ function createWindow() {
     width: 295,
     height: 295,
     titleBarStyle: "hidden",
-    // transparent: true,
+    transparent: true,
     alwaysOnTop: true,
     autoHideMenuBar: true,
     show: false,
@@ -40,7 +41,7 @@ function createWindow() {
   printer = new BrowserWindow({
     width: 800,
     height: 600,
-    show: false,
+    show: true,
     webPreferences: {
       nodeIntegration: true,
       preload: path.join(__dirname, "printer.js"),
@@ -68,7 +69,7 @@ function createWindow() {
     setTimeout(() => {
       win.show();
       splash.close();
-      autoUpdater.checkForUpdates();
+      autoUpdater.checkForUpdatesAndNotify();
     }, 3000);
     // setTimeout(updater.check, 5000);
   });

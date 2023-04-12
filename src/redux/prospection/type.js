@@ -1,0 +1,9 @@
+// PROSPECT
+export const ADD_PROSPECT = 'ADD_PROSPECT'
+export const DELETE_PROSPECT = 'DELETE_PROSPECT'
+export const UPDATE_PROSPECT = 'UPDATE_PROSPECT'
+
+// DEVIS
+export const ADD_DEVIS = 'ADD_DEVIS'
+export const DELETE_DEVIS = 'DELETE_DEVIS'
+export const UPDATE_DEVIS = 'UPDATE_DEVIS'

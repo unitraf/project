@@ -15,7 +15,7 @@ const Onglets = (props) => {
           <div
             key={index}
             className={toggleOnglets === index ? " onglet-active" : "onglet"}
-            style={{ display: "flex", alignItems:"center" }}
+            style={{ display: "flex", alignItems:"center", textTransform:'capitalize' }}
             onClick={() => {
               props.active && props.active(onglet);
               toggleOnglet(index);

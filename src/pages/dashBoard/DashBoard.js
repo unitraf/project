@@ -1,7 +1,7 @@
 import { mdiDotsVertical, mdiPlus } from '@mdi/js';
 import Icon from '@mdi/react';
 import React from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Area from '../../components/apex/Area';
 import Bar from '../../components/apex/Bar';
 import ChartUpdate from '../../components/apex/ChartUpdate';
@@ -33,6 +33,8 @@ const renderLink = (item, index) => (
   </Link>
 );
 const DashBoard = () => {
+  const location = useLocation()
+  console.log(location);
   return (
     <div className="dashboard">
     <div className="header-title">

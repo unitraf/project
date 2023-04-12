@@ -37,7 +37,17 @@ h3{
     font-size: 1rem;
 
 }
+.tableau th, .table td{
+    border: 1px solid var(--main-color);
+    font-size: 0.8rem;
+
+}
 .table th{
+    color: var(--main-color);
+    font-weight: bold;
+    background-color: white;
+}
+.tableau th{
     color: var(--main-color);
     font-weight: bold;
     background-color: white;

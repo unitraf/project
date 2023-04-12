@@ -27,7 +27,7 @@ export const dossier= {
      poids: "",
      volume: "",
      poidsVol:"",
-     client:{},
+     client:{nom:""},
      status: "Ouvert",
      interventions: [],
      debours: [],

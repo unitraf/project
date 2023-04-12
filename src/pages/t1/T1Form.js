@@ -1,7 +1,10 @@
+import { mdiPlusBox } from "@mdi/js";
+import Icon from "@mdi/react";
 import React, {  } from "react";
 import { useSelector } from "react-redux";
 import { Form, useNavigate } from "react-router-dom";
 import Listing from "../../components/listing/Listing";
+import { addClassName, removeClassName } from "../../helpers/fonctions";
 import { listBureau, paysExport } from "./init";
 
 const T1Form = (props) => {
@@ -23,7 +26,7 @@ const T1Form = (props) => {
         setT1({ ...t1, burEntree: `${item.bureau } (${item.code })`})
       }}
     >
-      <span className="col-4">{item.bureau}</span>
+      <span className="col-">{item.bureau}</span>
     </div>
   );
   const renderTarif = (item, index) => (
@@ -32,6 +35,7 @@ const T1Form = (props) => {
       key={index}
       onClick={() => {
         setT1({ ...t1, position:item.nts, designation:item.designation })
+        removeClassName("listing-item actif", "actif");
       }}
     >
       <span className="col-4">{item.nts}</span>
@@ -77,7 +81,7 @@ const T1Form = (props) => {
       </div>
       {/* ligne 2 */}
       <div className="col-12" style={{ display: "flex", marginBottom: 20 }}>
-        <div className="inputBox col-3">
+        <div className="inputBox col-4">
           <input
             type="text"
             name="burEntree"
@@ -93,7 +97,7 @@ const T1Form = (props) => {
            
           />
         </div>
-        <div className="inputBox col-3">
+        <div className="inputBox col-4">
           <input
             type="text"
             name="burSortie"
@@ -216,7 +220,18 @@ const T1Form = (props) => {
           <Listing
             content={listTarif}
             render={renderTarif}
-           
+            footer={
+              <Icon
+                path={mdiPlusBox}
+                size={0.8}
+                onClick={() =>
+                 {
+                    removeClassName("footer-item","actif")
+                    navigate("/tarifs/newTarif",)}
+                }
+              />
+            
+          }
           />
         </div>
         <div className="inputBox col-5">

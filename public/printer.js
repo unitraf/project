@@ -2,7 +2,7 @@ const { ipcRenderer } = require("electron");
 const QRCode = require("qrcode");
 
 
-const bg = `<div class="bg-logo" ><img src="bg-logo.png" alt="Logo" style="width: 300px;height: 300px;"></div>`;
+const bg = `<div class="bg-logo" ><img src="footer-logo.png" alt="Logo" style="width: 300px;height: 300px;"></div>`;
 document.addEventListener("DOMContentLoaded", (e) => {
   // document.body.innerHTML ="<h1>Impression window</h1>"
   let data = {

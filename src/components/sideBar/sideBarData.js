@@ -1,6 +1,8 @@
 import {
   mdiAlphaCBoxOutline,
+  mdiAlphaDBoxOutline,
   mdiAlphaFBoxOutline,
+  mdiAlphaPBoxOutline,
   mdiAlphaSBoxOutline,
   mdiAlphaTBoxOutline,
   mdiAlphaUBoxOutline,
@@ -40,6 +42,20 @@ export const menu = [
          
         ],
       },
+      
+      {
+        name: "Douane",
+        route: "douane",
+        icon: mdiAlphaDBoxOutline,
+        children: [
+          { name: "Tarifs SH", route: "tarifs",icon: mdiChevronRight, },
+          { name: "T1's", route: "t1",icon: mdiChevronRight, },
+          { name: "Déclarations", route: "ddu",icon: mdiChevronRight, },
+          { name: "Bureaux", route: "bureaux",icon: mdiChevronRight,},
+          { name: "Exonérations", route: "exo",icon: mdiChevronRight,},
+         
+        ],
+      },
       { name: "Tarif", route: "tarifs",icon: mdiAlphaTBoxOutline,},
       {
         name: "Facturation",
@@ -55,20 +71,48 @@ export const menu = [
          
         ],
       },
+      
       {
-        name: "Ventes",
-        route: "commercial",
-        icon: mdiAlphaVBoxOutline,
-      },
-      {
-        name: "Compta",
-        route: "compta",
+        name: "Comptabilité",
+        route: "comptabilite",
         icon: mdiAlphaCBoxOutline,
+        children: [
+          { name: "Journaux", route: "journaux",icon: mdiChevronRight, },
+          { name: "Balance", route: "balance",icon: mdiChevronRight, },
+          {
+            name: "Grand Livre",
+            route: "grandLivre",
+            icon: mdiChevronRight,
+          },
+          {
+            name: "Bilan",
+            route: "bilan",
+            icon: mdiChevronRight,
+          },
+          {
+            name: "Resultat",
+            route: "resultat",
+            icon: mdiChevronRight,
+          },
+          
+
+        ],
       },
+      
       {
-        name: "Sauvegarde",
-        route: "/sauvegarde",
-        icon: mdiAlphaSBoxOutline,
+        name: "Parametre",
+        route: "parametre",
+        icon: mdiAlphaPBoxOutline,
+        children: [
+          { name: "Sociéte", route: "societe",icon: mdiChevronRight, },
+          { name: "Utilisateurs", route: "users",icon: mdiChevronRight, },
+          {
+            name: "Sauvegarde",
+            route: "sauvegarde",
+            icon: mdiChevronRight,
+          },
+
+        ],
       },
     ],
   },

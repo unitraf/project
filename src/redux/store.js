@@ -6,12 +6,20 @@ import dossierReducer from "./dossier/reducer";
 import clientReducer from "./client/reducer";
 import articleReducer from "./article/reducer";
 import tarifReducer from "./tarif/reducer";
+import userReducer from "./user/reducer";
+import complementReducer from "./complement/reducer";
+import societeReducer from "./societe/reducer";
+import prospectionReducer from "./prospection/reducer";
 
 const rootReducer = combineReducers({
     dossiers: dossierReducer,
     clients:clientReducer, 
     articles:articleReducer, 
-    tarifs:tarifReducer
+    tarifs:tarifReducer,
+    users:userReducer,
+    complements:complementReducer,
+    societe:societeReducer, 
+    prospections:prospectionReducer
   });
   const store = createStore(
     rootReducer,

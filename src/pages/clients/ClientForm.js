@@ -1,9 +1,24 @@
+import { mdiPlusBox } from '@mdi/js';
+import Icon from '@mdi/react';
 import React from 'react'
-import { Form, useNavigate } from 'react-router-dom';
+import { Form, useLocation, useNavigate } from 'react-router-dom';
+import Listing from '../../components/listing/Listing';
+import { removeClassName } from '../../helpers/fonctions';
 
 const ClientForm = (props) => {
    const  {client}=props
    const navigate = useNavigate()
+   const renderRubrique = (item, index) => (
+    <div
+      className="item"
+      key={index}
+      onClick={() => {
+        // setArticle({ ...article,rubrique: item.rubrique,tva: item.tva, });
+      }}
+    >
+      <span>{item.rubrique}</span>
+    </div>
+  );
   return (
     <Form method="post" id="client-form">
           {/* ligne 1 */}
@@ -19,7 +34,7 @@ const ClientForm = (props) => {
 
               <label htmlFor={"nif"}>NIF</label>
             </div>
-            <div className="inputBox col-9">
+            <div className="inputBox col-6">
               <input
                 type="text"
                 name="nom"
@@ -42,7 +57,7 @@ const ClientForm = (props) => {
 
               <label htmlFor={"bp"}>Bp</label>
             </div>
-            <div className="inputBox col-3">
+            <div className="inputBox col-2">
               <input
                 type="text"
                 name="tel"
@@ -52,7 +67,7 @@ const ClientForm = (props) => {
               />
               <label htmlFor={"tel"}>Téléphone</label>
             </div>
-            <div className="inputBox col-6">
+            <div className="inputBox col-4">
               <input
                 type="text"
                 name="adresse"
@@ -63,9 +78,8 @@ const ClientForm = (props) => {
             </div>
           </div>
           {/* ligne 3 */}
-
           <div className="col-12" style={{ display: "flex", marginBottom: 20 }}>
-            <div className="inputBox col-5">
+            <div className="inputBox col-3">
               <input
                 type="email"
                 name="email"
@@ -74,24 +88,65 @@ const ClientForm = (props) => {
               />
 
               <label htmlFor={"nif"}>Email</label>
+            </div></div>
+          {/* ligne 3 */}
+
+          <div className="col-12" style={{ display: "flex", marginBottom: 20 }}>
+          <div className="inputBox col-2">
+              <input type="text" name="type" defaultValue={client.type} />
+              <label htmlFor={"compte"}>Type</label>
+              <Listing
+            content={["rubriques"]}
+            render={renderRubrique}
+            footer={
+              <Icon
+                path={mdiPlusBox}
+                size={0.8}
+                onClick={() =>
+                 {
+                    removeClassName("footer-item","actif")
+                    navigate("/facturation/prestations/newRubrique", )}
+                }
+              />}
+              />
+            </div>
+            <div className="inputBox col-3">
+              <input type="text" name="reglement" defaultValue={client.reglement} />
+              <label htmlFor={"reglement"}>Mode de reglément</label>
+              <Listing
+            content={["rubriques"]}
+            render={renderRubrique}
+            footer={
+              <Icon
+                path={mdiPlusBox}
+                size={0.8}
+                onClick={() =>
+                 {
+                    removeClassName("footer-item","actif")
+                    navigate("/facturation/prestations/newRubrique", )}
+                }
+              />}
+              />
             </div>
             <div className="inputBox col-2">
               <input type="number" name="compte" defaultValue={client.compte} />
               <label htmlFor={"compte"}>Compte</label>
             </div>
-            <div className="inputBox col-2">
-              <input type="text" name="type" defaultValue={client.type} />
-              <label htmlFor={"compte"}>Type</label>
-            </div>
+           
 
-            <div className="checkbox col-2">
+           
+          </div>
+            {/* ligne 3 */}
+
+            <div className="col-12" style={{ display: "flex", marginBottom: 20,  }}>
+            <div className="checkbox col-2" style={{  paddingBlock:3 }}>
               <input
                 className=""
                 type="checkbox"
                 name="exo"
                 defaultChecked={client.exo}
               />
-              <label htmlFor={"exo"}>Exo TVA</label>
+              <label htmlFor={"exo"}>Dispense (Tva) </label>
             </div>
           </div>
           {/* Buutton */}

@@ -1,6 +1,6 @@
 
-import { ADD_CLIENT, DELETE_CLIENT, UPDATE_CLIENT , } from "./type";
-
+import { ADD_CLIENT, DELETE_CLIENT, UPDATE_CLIENT ,ADD_TYPE,DELETE_TYPE,UPDATE_TYPE } from "./type";
+// client
 export const addClient = (client) => {
 
   return {
@@ -23,4 +23,3 @@ export const updateClient = (updateClient) => {
     payload: updateClient,
   };
 };
-

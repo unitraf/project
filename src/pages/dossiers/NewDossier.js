@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { dossier as init } from "./init";
 import DossierForm from "./DossierForm";
-import { useActionData, useNavigate } from "react-router-dom";
+import { useActionData, useLocation, useNavigate } from "react-router-dom";
 import { addDossier } from "../../redux/dossier/action";
 import { useDispatch } from "react-redux";
 export async function newDossierAction({ request, params }) {
@@ -17,7 +17,8 @@ const NewDossier = () => {
   const [dossier, setDossier] = useState(init);
 
   const navigate = useNavigate();
-
+  const {location, state} = useLocation()
+console.log(location);
   useEffect(() => {
     if (actionData) {
       let { client, operateur } = dossier;
