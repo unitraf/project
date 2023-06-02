@@ -1,172 +1,282 @@
-import { mdiPlusBox } from '@mdi/js';
-import Icon from '@mdi/react';
-import React from 'react'
-import { Form, useLocation, useNavigate } from 'react-router-dom';
-import Listing from '../../components/listing/Listing';
-import { removeClassName } from '../../helpers/fonctions';
+import { mdiPlusBox } from "@mdi/js";
+import Icon from "@mdi/react";
+import React, { useState } from "react";
+import { Form, useNavigate } from "react-router-dom";
+import Listing from "../../components/listing/Listing";
+import { removeClassName } from "../../helpers/fonctions";
+import SnackBar from "../../components/snackbar/SnackBar";
+import { useSelector } from "react-redux";
+import { contact as init } from "./init";
 
 const ClientForm = (props) => {
-   const  {client}=props
-   const navigate = useNavigate()
-   const renderRubrique = (item, index) => (
+  const { client, setClient } = props;
+  const [contact, setContact] = useState(init);
+  const store = useSelector((state) => state);
+  const { societe, users, typeClients, reglements } = store;
+  console.log(typeClients, reglements);
+  const [disabled, setDisabled] = useState(false);
+  const navigate = useNavigate();
+  const handleChange = (e) => {
+    setClient({ ...client, [e.target.name]: e.target.value });
+  };
+  const handleContact = (e) => {
+    setContact({ ...contact, [e.target.name]: e.target.value });
+  };
+  const handleSubmit = () => {
+    setDisabled(true);
+    setClient({ ...client, contact });
+  };
+  console.log(client);
+  const renderTypeClient = (item, index) => (
     <div
       className="item"
       key={index}
       onClick={() => {
-        // setArticle({ ...article,rubrique: item.rubrique,tva: item.tva, });
+        setClient({ ...client, type: item, reglement: item.mode });
       }}
     >
-      <span>{item.rubrique}</span>
+      <span>{item.designation}</span>
+    </div>
+  );
+  const renderUsers = (item, index) => (
+    <div
+      className="item"
+      key={index}
+      onClick={() => {
+        setClient({ ...client, responsable: { ...item, password: "*******" } });
+      }}
+    >
+      <span>{item.nom}</span>
+    </div>
+  );
+  const renderReglements = (item, index) => (
+    <div
+      className="item"
+      key={index}
+      onClick={() => {
+        setClient({ ...client, reglement: item });
+      }}
+    >
+      <span>{item.libelle}</span>
     </div>
   );
   return (
-    <Form method="post" id="client-form">
-          {/* ligne 1 */}
-          <div className="col-12" style={{ display: "flex", marginBottom: 20 }}>
-            <div className="inputBox col-2">
-              <input
-                type="number"
-                name="nif"
-                autoComplete="off"
-                defaultValue={client.nif}
-                required
-              />
-
-              <label htmlFor={"nif"}>NIF</label>
-            </div>
-            <div className="inputBox col-6">
-              <input
-                type="text"
-                name="nom"
-                autoComplete="off"
-                defaultValue={client.nom}
-                required
-              />
-              <label htmlFor={"nom"}>Nom, Raison sociale</label>
-            </div>
-          </div>
-          {/* ligne 2 */}
-          <div className="col-12" style={{ display: "flex", marginBottom: 20 }}>
-            <div className="inputBox col-2">
-              <input
-                type="number"
-                name="bp"
-                autoComplete="off"
-                defaultValue={client.bp}
-              />
-
-              <label htmlFor={"bp"}>Bp</label>
-            </div>
-            <div className="inputBox col-2">
-              <input
-                type="text"
-                name="tel"
-                autoComplete="off"
-                defaultValue={client.tel}
-               
-              />
-              <label htmlFor={"tel"}>Téléphone</label>
-            </div>
-            <div className="inputBox col-4">
-              <input
-                type="text"
-                name="adresse"
-                autoComplete="off"
-                defaultValue={client.adresse}
-              />
-              <label htmlFor={"adresse"}>Adresse</label>
-            </div>
-          </div>
-          {/* ligne 3 */}
-          <div className="col-12" style={{ display: "flex", marginBottom: 20 }}>
-            <div className="inputBox col-3">
-              <input
-                type="email"
-                name="email"
-                autoComplete="off"
-                defaultValue={client.email}
-              />
-
-              <label htmlFor={"nif"}>Email</label>
-            </div></div>
-          {/* ligne 3 */}
-
-          <div className="col-12" style={{ display: "flex", marginBottom: 20 }}>
+    <>
+      <Form method="post" id="client-form" onSubmit={handleSubmit}>
+        {/* ligne 1 */}
+        <div className="col-12" style={{ display: "flex", marginBottom: 20 }}>
           <div className="inputBox col-2">
-              <input type="text" name="type" defaultValue={client.type} />
-              <label htmlFor={"compte"}>Type</label>
-              <Listing
-            content={["rubriques"]}
-            render={renderRubrique}
-            footer={
-              <Icon
-                path={mdiPlusBox}
-                size={0.8}
-                onClick={() =>
-                 {
-                    removeClassName("footer-item","actif")
-                    navigate("/facturation/prestations/newRubrique", )}
-                }
-              />}
-              />
-            </div>
-            <div className="inputBox col-3">
-              <input type="text" name="reglement" defaultValue={client.reglement} />
-              <label htmlFor={"reglement"}>Mode de reglément</label>
-              <Listing
-            content={["rubriques"]}
-            render={renderRubrique}
-            footer={
-              <Icon
-                path={mdiPlusBox}
-                size={0.8}
-                onClick={() =>
-                 {
-                    removeClassName("footer-item","actif")
-                    navigate("/facturation/prestations/newRubrique", )}
-                }
-              />}
-              />
-            </div>
-            <div className="inputBox col-2">
-              <input type="number" name="compte" defaultValue={client.compte} />
-              <label htmlFor={"compte"}>Compte</label>
-            </div>
-           
+            <input
+              type="number"
+              name="nif"
+              autoComplete="off"
+              value={client.nif}
+              onChange={handleChange}
+              required
+            />
 
-           
+            <label htmlFor={"nif"}>NIF</label>
           </div>
-            {/* ligne 3 */}
-
-            <div className="col-12" style={{ display: "flex", marginBottom: 20,  }}>
-            <div className="checkbox col-2" style={{  paddingBlock:3 }}>
-              <input
-                className=""
-                type="checkbox"
-                name="exo"
-                defaultChecked={client.exo}
-              />
-              <label htmlFor={"exo"}>Dispense (Tva) </label>
-            </div>
+          <div className="inputBox col-4">
+            <input
+              type="text"
+              name="nom"
+              autoComplete="off"
+              value={client.nom}
+              onChange={handleChange}
+              required
+            />
+            <label htmlFor={"nom"}>Nom, Raison sociale</label>
           </div>
-          {/* Buutton */}
-          <div>
-            <button className="button" type="submit">
-              Valider
-            </button>
-
-            <button
-              className="button"
-              type="button"
-              onClick={() => {
-                navigate(-1);
-              }}
-            >
-              Annuler
-            </button>
+          <div className="inputBox col-3">
+            <input
+              type="text"
+              value={client.type && client.type.designation}
+              onChange={handleChange}
+            />
+            <label htmlFor={"compte"}>Type</label>
+            <Listing
+              content={societe.typeClients}
+              render={renderTypeClient}
+              footer={
+                <Icon
+                  path={mdiPlusBox}
+                  size={0.8}
+                  onClick={() => {
+                    removeClassName("footer-item", "actif");
+                    navigate("/clients/type");
+                  }}
+                />
+              }
+            />
           </div>
-        </Form>
-  )
-}
+        </div>
+        {/* ligne 2 */}
+        <div className="col-12" style={{ display: "flex", marginBottom: 20 }}>
+          <div className="inputBox col-2">
+            <input
+              type="number"
+              name="bp"
+              autoComplete="off"
+              value={client.bp}
+              onChange={handleChange}
+            />
 
-export default ClientForm
+            <label htmlFor={"bp"}>Bp</label>
+          </div>
+          <div className="inputBox col-2">
+            <input
+              type="text"
+              name="tel"
+              autoComplete="off"
+              value={client.tel}
+              onChange={handleChange}
+            />
+            <label htmlFor={"tel"}>Téléphone</label>
+          </div>
+          <div className="inputBox col-4">
+            <input
+              type="text"
+              name="adresse"
+              autoComplete="off"
+              value={client.adresse}
+              onChange={handleChange}
+            />
+            <label htmlFor={"adresse"}>Adresse</label>
+          </div>
+        </div>
+        {/* ligne contact 2 */}
+        <div className="col-12" style={{ display: "flex", marginBottom: 20 }}>
+          <div className="inputBox col-3">
+            <input
+              type="text"
+              name="prenom"
+              autoComplete="off"
+              value={contact.prenom}
+              onChange={handleContact}
+            />
+
+            <label htmlFor={"prenom"}>Contact</label>
+          </div>
+          <div className="inputBox col-2">
+            <input
+              type="text"
+              name="fonction"
+              autoComplete="off"
+              value={contact.fonction}
+              onChange={handleContact}
+            />
+
+            <label htmlFor={"fonction"}>Fonction</label>
+          </div>
+          <div className="inputBox col-2">
+            <input
+              type="text"
+              name="tel"
+              autoComplete="off"
+              value={contact.tel}
+              onChange={handleContact}
+            />
+            <label htmlFor={"tel"}>Téléphone</label>
+          </div>
+          <div className="inputBox col-3">
+            <input
+              type="text"
+              name="email"
+              autoComplete="off"
+              value={contact.email}
+              onChange={handleContact}
+            />
+            <label htmlFor={"email"}>Email</label>
+          </div>
+        </div>
+
+        <div className="col-12" style={{ display: "flex", marginBottom: 20 }}>
+          <div className="inputBox col-2">
+            <input
+              type="number"
+              name="compte"
+              value={client.compte}
+              onChange={handleChange}
+            />
+            <label htmlFor={"compte"}>Compte auxi.</label>
+          </div>
+          <div className="inputBox col-3">
+            <input
+              type="text"
+              value={client.reglement && client.reglement.libelle}
+              onChange={handleChange}
+            />
+            <label htmlFor={"reglement"}>Mode de reglément</label>
+            <Listing
+              content={societe.reglements}
+              render={renderReglements}
+              footer={
+                <Icon
+                  path={mdiPlusBox}
+                  size={0.8}
+                  onClick={() => {
+                    removeClassName("footer-item", "actif");
+                    navigate("/parametre/societe/newReglement");
+                  }}
+                />
+              }
+            />
+          </div>
+
+          <div className="inputBox col-3">
+            <input
+              type="text"
+              // name="responsable"
+              value={client.responsable && client.responsable.nom}
+              onChange={handleChange}
+              required
+            />
+            <label htmlFor={"responsable"}>Résp. interne</label>
+            <Listing
+              content={users}
+              render={renderUsers}
+              footer={
+                <Icon
+                  path={mdiPlusBox}
+                  size={0.8}
+                  onClick={() => {
+                    removeClassName("footer-item", "actif");
+                    navigate("/parametres/users/newUser");
+                  }}
+                />
+              }
+            />
+          </div>
+        </div>
+        {/* ligne 3 */}
+
+        <div className="col-9" style={{ display: "flex", marginBottom: 20 }}>
+        <textarea  onChange={handleChange} name="note" id="note" cols="50" rows="3" placeholder={client.notes}>
+            
+            </textarea>
+          
+        </div>
+        {/* Buutton */}
+        <div>
+          <button disabled={disabled} className="button" type="submit">
+            Valider
+          </button>
+
+          <button
+            className="button"
+            type="button"
+            onClick={() => {
+              navigate(-1);
+            }}
+          >
+            Annuler
+          </button>
+        </div>
+      </Form>
+      <SnackBar message={`Nouveau client ajouter`} />
+    </>
+  );
+};
+
+export default ClientForm;

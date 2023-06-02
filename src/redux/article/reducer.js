@@ -1,5 +1,6 @@
 import { ADD_ARTICLE, DELETE_ARTICLE, UPDATE_ARTICLE, UPDATE_RUBRIQUE, DELETE_RUBRIQUE,ADD_RUBRIQUE } from "./type";
 import data from "../../data/data_.json";
+import { v4 as uuid } from "uuid";
 const initialState = {
   articles: [],
   rubrique:[]
@@ -13,7 +14,7 @@ const reducer = (
     // Article
     case ADD_ARTICLE:
       console.log("ADD_ARTICLE", action.payload);
-      let articles = [...state, action.payload];
+      let articles = [...state, {...action.payload, uuid:uuid()}];
       return articles;
 
     case DELETE_ARTICLE:

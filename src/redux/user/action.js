@@ -9,18 +9,18 @@ export const addUser = (user) => {
   };
 };
 
-export const deleteUser = (idUser) => {
+export const deleteUser = (user) => {
 
   return {
     type: DELETE_USER,
-    payload: idUser,
+    payload: user,
   };
 };
 
-export const updateUser = (updateUser) => {
+export const updateUser = (user) => {
   return {
     type: UPDATE_USER,
-    payload: updateUser,
+    payload: user,
   };
 };
 

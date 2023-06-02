@@ -1,14 +1,14 @@
 import React, { useRef } from "react";
 import Icon from "@mdi/react";
 import "./menu.css";
-
+export const clickOnItem =()=> document.querySelector(".menu_content.active_m").classList.toggle("active_m")
 const clickOutsideRef = (content_ref, toggle_ref) => {
   document.addEventListener("mousedown", (e) => {
     if (toggle_ref.current && toggle_ref.current.contains(e.target)) {
-      content_ref.current.classList.toggle("active");
+      content_ref.current.classList.toggle("active_m");
     } else {
       if (content_ref.current && !content_ref.current.contains(e.target)) {
-        content_ref.current.classList.remove("active");
+        content_ref.current.classList.remove("active_m");
       }
     }
   });
@@ -22,7 +22,7 @@ const Menu = (props) => {
   clickOutsideRef(view_content_el, menu_toggle_el);
 
   return (
-    <div className="menu" style={props.menu&&props.menu} >
+    <section className="menu" style={props.menu&&props.menu} >
       <button
         ref={menu_toggle_el}
         className="menu__toggle"
@@ -44,7 +44,7 @@ const Menu = (props) => {
         {props.customtoggle ? props.customtoggle() : ""}
       </button>
 
-      <div
+      <section
         style={props.content && props.style}
         ref={menu_content_el}
         className="menu_content"
@@ -58,7 +58,7 @@ const Menu = (props) => {
         ) : (
           ""
         )}
-      </div>
+      </section>
       <div
         style={props.view && props.style}
         ref={view_content_el}
@@ -66,7 +66,7 @@ const Menu = (props) => {
       >
         {props.view && props.view}
       </div>
-    </div>
+    </section>
   );
 };
 

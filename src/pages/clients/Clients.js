@@ -1,5 +1,12 @@
 import {
-  mdiDotsVertical,
+  mdiAccountMultipleOutline,
+  mdiAccountPlusOutline,
+  mdiCashCheck,
+  mdiCashClock,
+  mdiCashFast,
+  mdiCashMinus,
+  mdiCashMultiple,
+  mdiEye,
   mdiPlus,
   mdiSquareEditOutline,
   mdiTrashCanOutline,
@@ -7,40 +14,57 @@ import {
 import Icon from "@mdi/react";
 import React from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import Menu from "../../components/menu/Menu";
+import { Link, useNavigate } from "react-router-dom";
 import Table from "../../components/table/Table";
 
 import "./clients.css";
-const link = [
+import Title from "../../components/title/Title";
+import Button from "../../components/buttonLink/Button";
+
+const listCard = [
   {
-    icon: mdiPlus,
-    content: "Nouveau",
-    route: "newClient",
+    icon: mdiAccountPlusOutline,
+    link: "Nouveau",
+    route: "/clients/newClient",
   },
   {
-    icon: mdiPlus,
-    content: "Type",
-    route: "type",
+    icon: mdiCashMultiple,
+    link: "Regléments",
+    route: "/clients/paiements",
+  },
+  {
+    icon: mdiCashClock,
+    link: "Echéanciers",
+    route: "/clients/paiements",
+  },
+  {
+    icon: mdiCashMinus,
+    link: "Ecarts",
+    route: "/clients/paiements",
+  },
+  {
+    icon: mdiCashFast,
+    link: "Relances",
+    route: "/clients/paiements",
+  },
+  
+  {
+    icon: mdiCashCheck,
+    link: "Transferts",
+    route: "/clients/paiements",
   },
 ];
-const renderLink = (item, index) => (
-  <Link to={item.route} key={index}>
-    <div className="item">
-      <Icon path={item.icon} size={0.8} color="var(--main-color)" />
-      <span>{item.content}</span>
-    </div>
-  </Link>
-);
 const Clients = () => {
   const state = useSelector((state) => state);
+  const navigate = useNavigate();
   const { clients } = state;
 
-  let headData = ["NIF", "Nom", "Tél", "BP", "Adresse", "Email", "Action"];
+  let headData = ["Compte","NIF", "Nom", "Tél", "BP", "Adresse", "Email", "Action"];
   const renderHead = (item, index) => <th key={index}>{item}</th>;
 
   const renderBody = (item, index) => (
     <tr key={index}>
+      <td>{`${item.compte}/${index+1}`}</td>
       <td>{item.nif}</td>
       <td>{item.nom}</td>
       <td>{item.tel}</td>
@@ -56,46 +80,72 @@ const Clients = () => {
           margin: 0,
         }}
       >
-        <Link to={`/clients/${item.nif}`}>
-          {" "}
-          <Icon path={mdiSquareEditOutline} size={0.6} title="Editer" />{" "}
-        </Link>
+        <Icon
+          path={mdiEye}
+          size={0.6}
+          title="Profile"
+          onClick={() =>
+            navigate(`/clients/profile/${item.nif}`, { state: item })
+          }
+        />{" "}
         /
-        <Link to={`/clients/${item.nif}/destroy`} onClick={(e) => {}}>
-          {" "}
-          <Icon path={mdiTrashCanOutline} size={0.6} title="Supprimer" />{" "}
-        </Link>
+        <Icon
+          path={mdiSquareEditOutline}
+          size={0.6}
+          title="Editer"
+          onClick={() => navigate(`/clients/${item.nif}`, { state: item })}
+        />{" "}
+        /
+        <Icon
+          path={mdiTrashCanOutline}
+          size={0.6}
+          title="Supprimer"
+          onClick={() =>
+            navigate(`/clients/${item.nif}/destroy`, { state: item })
+          }
+        />
       </td>
     </tr>
   );
-
-  return (
-    <div className="clients">
-      <div className="header-title">
-        Clients{" "}
-        <span style={{ position: "fixed", right: 10 }}>
-          <Menu
-            icon={mdiDotsVertical}
-            size={0.8}
+  const renderStat = (
+    <div>
+      <div className="dossier col-12">
+        {/* Listing */}
+        <fieldset className="card entite col-12 ">
+          <legend
+            className="card legend"
             style={{
               display: "flex",
-              flexDirection: "column",
-              backgroundColor: "white",
-              marginTop: 5,
+              justifyContent: "space-between",
+              alignItems: "flex-end",
             }}
-            content={link}
-            // customtoggle={() => renderUserToggle("admin****nif@sgs.com")}
-            render={(item, index) => renderLink(item, index)}
+          >
+            <Icon
+              path={mdiAccountMultipleOutline}
+              size={0.8}
+              color={"var(--main-color)"}
+            />
+            <span className="i-legend">Tiers</span>{" "}
+          </legend>
+          <div className="pr-row"></div>
+          <Table
+            headData={headData}
+            renderHead={renderHead}
+            bodyData={clients}
+            renderBody={renderBody}
           />
-        </span>
+        </fieldset>
       </div>
-
-      <Table
-        headData={headData}
-        renderHead={renderHead}
-        bodyData={clients}
-        renderBody={renderBody}
-      />
+    </div>
+  );
+  return (
+    <div className="">
+  
+      <div className="card">
+        <Title title="Partenaires" />
+      </div>
+      <Button listCard={listCard} />
+      {renderStat}
     </div>
   );
 };

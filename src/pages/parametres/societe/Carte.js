@@ -81,14 +81,14 @@ const Carte = (props) => {
                 </div>
                 {/* ligne 2 */}
                 <div style={{ display: "flex", marginTop: 20 }} >
-                    <InputBox col={4} label="Nif" defaultValue={(societe.nif).toUpperCase()} />
+                    <InputBox col={4} label="Nif" defaultValue={(societe.nif)} />
                     <InputBox col={8} label="Rccm" defaultValue={societe.rccm} />
 
                 </div>
                 {/* ligne 3 */}
 
                 <div style={{ display: "flex", marginTop: 20 }} >
-                    <InputBox col={4} label="Tél 1" defaultValue={(societe.tel1).toUpperCase()} />
+                    <InputBox col={4} label="Tél 1" defaultValue={(societe.tel1)} />
                     <InputBox col={4} label="Tél 2" defaultValue={societe.tel2} />
                     <InputBox col={4} label="Fax" defaultValue={societe.fax} />
 
@@ -96,14 +96,14 @@ const Carte = (props) => {
                 </div>
                 {/* ligne 4 */}
                 <div style={{ display: "flex", marginTop: 20 }} >
-                    <InputBox col={3} label="Bp" defaultValue={(societe.bp).toUpperCase()} />
+                    <InputBox col={3} label="Bp" defaultValue={(societe.bp)} />
                     <InputBox col={9} label="Adresse" defaultValue={`${societe.adresse1} - ${societe.adresse2}`} />
 
 
                 </div>
                 {/* ligne 5 */}
                 <div style={{ display: "flex", marginTop: 20 }} >
-                    <InputBox col={12} label="Email" defaultValue={("societe.email").toLowerCase()} />
+                    <InputBox col={12} label="Email" defaultValue={("societe.email")} />
 
                 </div>
                 {/* ligne 6 */}

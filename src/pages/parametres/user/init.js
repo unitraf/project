@@ -1,14 +1,32 @@
-const familleClient = "code, libelle,mode de reglement, facturation ttc, tauxTva, remise"
-const client = {
-    id: "",
-    civilite:"",
-    nom: "",
-    prenom:"",
-    password: "",
-   
-    email: "",
-    fonction: "",
-    status:"",
-    privilege:"",
-   
-  };
+export const user = {
+
+  nom: "",
+  prenom: "",
+  password: "",
+
+  email: "",
+  fonction: "",
+  status: "Inactif",
+  privileges: ["Dashboard", "Transit", "Douane"],
+};
+
+export const ListAcces = [
+  "Dashboard",
+  "Clients",
+  "Transit",
+  "Douane",
+
+  "Facturation",
+  "Comptabilité",
+  "Paramètres",
+];
+
+
+export const log = {
+
+crud:"",
+db:"",
+reference:"",
+operateur:""
+
+}

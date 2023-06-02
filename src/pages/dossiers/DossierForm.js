@@ -1,5 +1,4 @@
 import {
-  mdiDotsVertical,
   mdiDotsVerticalCircle,
   mdiFolderPlusOutline,
   mdiPlusBox,
@@ -12,10 +11,13 @@ import Listing from "../../components/listing/Listing";
 import Menu from "../../components/menu/Menu";
 import Onglets from "../../components/onglet/Onglets";
 import TableT1 from "./TableT1";
-import { listMode, listStatus, listType } from "./init";
+import { checkId, listMode, listType } from "./init";
+import { useDispatch } from "react-redux";
+import { addDossier } from "../../redux/dossier/action";
 import TableDdu from "./TableDdu";
 import TableMinute from "./TableMinute";
 import { removeClassName } from "../../helpers/fonctions";
+import SnackBar, { displaySnack } from "../../components/snackbar/SnackBar";
 
 const content = [
   {
@@ -41,18 +43,46 @@ const content = [
 ];
 
 const DossierForm = (props) => {
+  const dispatch = useDispatch();
   const params = useParams();
-  
+
   const state = useSelector((state) => state);
   const [showModal, setShowModal] = useState(false);
-  const navigate = useNavigate();
-  const { clients } = state;
-  const { dossier, setDossier } = props;
 
+  const navigate = useNavigate();
+  const { clients, dossiers } = state;
+  const { dossier, setDossier } = props;
+  // console.log(checkId(dossiers, "numero", "5"));
   const handleChange = (e) => {
     setDossier({ ...dossier, [e.target.name]: e.target.value });
     // submit(e.currentTarget.form);
   };
+  const handleNada = ()=>{}
+
+console.log(dossier);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    let check = checkId(dossiers, "numero", dossier.numero)
+
+    if (check.length) {
+      console.log("Exist Déja",dossier.numero);
+      displaySnack("Numéro dossier présent dans la base de données!");
+    } else {
+      displaySnack("Nouveau dossier ajouter");
+      dispatch(addDossier(dossier));
+      setTimeout(() => {
+        navigate(-1);
+      }, 3000);
+      
+    }
+
+  
+
+    // setDossier({ ...dossier, [e.target.name]: e.target.value });
+    // submit(e.currentTarget.form);
+  };
+
   const menuContent = (item, index) => (
     <Link to={`${item.route}/${dossier.numero}`} key={index}>
       <div className="item" style={{ cursor: "pointer" }}>
@@ -60,23 +90,6 @@ const DossierForm = (props) => {
         <span>{item.content}</span>
       </div>
     </Link>
-  );
-  const ongletMenuIcon = (
-    <Menu
-      icon={mdiDotsVertical}
-      color={"white"}
-      size={0.6}
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        right: -10,
-        marginTop: 5,
-        backgroundColor: "white",
-      }}
-      content={content}
-      // customtoggle={() => renderUserToggle("admin****nif@sgs.com")}
-      render={(item, index) => menuContent(item, index)}
-    />
   );
   const ongletOptions = (
     <Menu
@@ -126,28 +139,14 @@ const DossierForm = (props) => {
       <span className="col-4">{item}</span>
     </div>
   );
-  const renderStatus = (item, index) => (
-    <div
-      className="item"
-      key={index}
-      onClick={() => {
-        setDossier({ ...dossier, status: item });
-      }}
-    >
-      <span className="col-4">{item}</span>
-    </div>
-  );
 
   return (
     <>
-      <Form method="post" id="dossier-form">
+      <Form method="post" id="dossier-form" onSubmit={handleSubmit}>
         {/* ligne 1 */}
         <div className="col-12" style={{ display: "flex", marginBottom: 20 }}>
-          <div className="inputBox col-2">
-            <input type="text" name="id" defaultValue={dossier.id} />
+          <input type="hidden" name="id" defaultValue={dossier.id} />
 
-            <label htmlFor={"id"}>Sid</label>
-          </div>
           <div className="inputBox col-2">
             <input
               type="date"
@@ -169,8 +168,18 @@ const DossierForm = (props) => {
 
             <label htmlFor={"numero"}>N° Dossier</label>
           </div>
-
-          <div className="inputBox col-3">
+          <div className="inputBox col-2">
+            <input
+              type="text"
+              name="mode"
+              value={dossier.mode}
+              onChange={handleNada}
+              required
+            />
+            <label htmlFor={"mode"}>Mode</label>
+            <Listing content={listMode} render={renderMode} />
+          </div>
+          <div className="inputBox col-4">
             <input
               type="text"
               name="reference"
@@ -178,12 +187,12 @@ const DossierForm = (props) => {
               onChange={handleChange}
               required
             />
-            <label htmlFor={"reference"}>Réf. Client</label>
+            <label htmlFor={"reference"}>Cmde. Client</label>
           </div>
         </div>
         {/* ligne 2 */}
         <div className="col-12" style={{ display: "flex", marginBottom: 20 }}>
-          <div className="inputBox col-3">
+          <div className="inputBox col-4">
             <input
               type="text"
               name="expediteur"
@@ -197,7 +206,7 @@ const DossierForm = (props) => {
               type="text"
               name="client"
               value={dossier.client.nom}
-              onChange={handleChange}
+              onChange={handleNada}
               required
             />
             <label htmlFor={"client"}>Destinataire</label>
@@ -205,16 +214,14 @@ const DossierForm = (props) => {
               content={clients}
               render={renderClient}
               footer={
-                  <Icon
-                    path={mdiPlusBox}
-                    size={0.8}
-                    onClick={() =>
-                     {
-                        removeClassName("footer-item","actif")
-                        navigate("/clients/newClient", {from:dossier},)}
-                    }
-                  />
-                
+                <Icon
+                  path={mdiPlusBox}
+                  size={0.8}
+                  onClick={() => {
+                    removeClassName("footer-item", "actif");
+                    navigate("/clients/newClient", { from: dossier });
+                  }}
+                />
               }
             />
           </div>
@@ -229,19 +236,9 @@ const DossierForm = (props) => {
               onChange={handleChange}
               required
             />
-            <label htmlFor={"document"}>Document</label>
+            <label htmlFor={"document"}>{dossier.mode ==="Aérien"?"Document (LTA)":dossier.mode ==="Maritime"?"Document (BL)":"Document (Autres)"}</label>
           </div>
-          <div className="inputBox col-2">
-            <input
-              type="text"
-              name="mode"
-              value={dossier.mode}
-              onChange={handleChange}
-              required
-            />
-            <label htmlFor={"mode"}>Mode</label>
-            <Listing content={listMode} render={renderMode} />
-          </div>
+          
           <div className="inputBox col-3">
             <input
               type="text"
@@ -303,7 +300,7 @@ const DossierForm = (props) => {
               onChange={handleChange}
               required
             />
-            <label htmlFor={"nombre"}>Nombre</label>
+            <label htmlFor={"nombre"}>Colis</label>
           </div>
 
           <div className="inputBox col-2">
@@ -311,7 +308,7 @@ const DossierForm = (props) => {
               type="text"
               name="type"
               value={dossier.type}
-              onChange={handleChange}
+              onChange={handleNada}
               required
             />
             <label htmlFor={"type"}>Type</label>
@@ -339,10 +336,11 @@ const DossierForm = (props) => {
             />
             <label htmlFor={"poids"}>Poids Brut</label>
           </div>
+          {dossier.mode&&dossier.mode ==="Aérien"&&<>
           <div className="inputBox col-2">
             <input
               type="number"
-              name="poids"
+              name="poidsVol"
               value={dossier.poidsVol}
               onChange={handleChange}
             />
@@ -356,8 +354,8 @@ const DossierForm = (props) => {
               onChange={handleChange}
             />
             <label htmlFor={"volume"}>Volume</label>
-          </div>
-
+          </div></>
+        }
           <div className="inputBox col-2">
             <input
               type="hidden"
@@ -384,7 +382,7 @@ const DossierForm = (props) => {
               navigate(-1);
             }}
           >
-            Annuler
+            Quitter
           </button>
         </div>
       </Form>
@@ -408,6 +406,8 @@ const DossierForm = (props) => {
           />
         </div>
       )}
+
+      <SnackBar />
     </>
   );
 };

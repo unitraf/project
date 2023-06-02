@@ -9,7 +9,7 @@ const DetailsTable = (props) => {
   const { pathname } = useLocation();
   console.log(pathname);
   const { dossier, setDossier } = props;
-  // console.log(dossier);
+  console.log(dossier);
   // console.log(getTotal(dossier.prestations, "montant"));
   const prestations =
     dossier && groupBy([...(dossier.prestations || [])], "rubrique");

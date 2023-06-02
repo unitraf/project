@@ -1,6 +1,18 @@
+#treeview{
+  border: 1px solid var(--main-color);
+    border-radius: var(--border-radius);
+  text-align: left;
+width: 100%;
+padding: 5px;
+}
+
 /* Remove default bullets */
-ul, #myUL {
+#treeview ul {
     list-style-type: none;
+    margin-bottom: 3px;
+  }
+#treeview li {
+   margin-bottom: 2px;
   }
   
   /* Remove margins and padding from the parent ul */
@@ -11,29 +23,80 @@ ul, #myUL {
   
   /* Style the caret/arrow */
   .caret {
+position: relative;
     cursor: pointer;
     user-select: none; /* Prevent text selection */
+    display: flex;
+    font-size: 0.9rem;
+    font-style: italic;
   }
   
   /* Create the caret/arrow with a unicode, and style it */
   .caret::before {
-    content: "\25B6";
-    color: black;
-    display: inline-block;
-    margin-right: 6px;
+   
+    content: "\002B";
+    content: "\2937";
+  
+    color: var(--main-color);
+    /* display: inline-block; */
+    margin-right: 5px;
+    font-size: 0.9rem;
+    
+ font-weight: bold;
+    border-radius: 5px;
+    /* width: 21px; */
+    height: fit-content;
+ 
+
   }
   
   /* Rotate the caret/arrow icon when clicked on (using JavaScript) */
   .caret-down::before {
-    transform: rotate(90deg);
+   
+   
+    content: "\2212";
+    content: "\2935";
+   
   }
   
+  .caret:hover{
+  background-color: var(--second-bg);
+  /* border: 1px solid var(--main-color); */
+  padding-inline: 5px;
+  border-radius: var(--border-radius);
+  }
   /* Hide the nested list */
   .nested {
     display: none;
   }
   
-  /* Show the nested list when the user clicks on the caret/arrow (with JavaScript) */
-  .active {
-    display: block;
+  .nested table{
+  
+  text-align: center;
   }
+  /* Show the nested list when the user clicks on the caret/arrow (with JavaScript) */
+  .active-expand {
+    display: block;
+    position: relative;
+    left: 15px;
+    margin-right:  15px;
+  }
+
+ span-item {
+    margin-right: 5px;
+    border: 1px solid var(--main-color);
+    border-radius: var(--border-radius);
+    padding-inline: 5px;
+    font-style: italic;
+    background-color: var(--main-color);
+  color: white;
+  }
+  .tbody span {
+    margin-right: 2px;
+    border-bottom: 1px solid var(--main-color);
+    /* border-radius: var(--border-radius); */
+    padding-inline: 5px;
+    
+  
+  }
+

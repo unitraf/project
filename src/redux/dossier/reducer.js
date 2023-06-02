@@ -1,5 +1,6 @@
 import { ADD_DOSSIER, DELETE_DOSSIER, UPDATE_DOSSIER } from "./type";
 import data from "../../data/data_.json";
+import { v4 as uuid } from "uuid";
 const initialState = {
   dossiers: [],
 };
@@ -9,7 +10,7 @@ const reducer = (state =data.dossiers?data.dossiers: initialState.dossiers, acti
   switch (action.type) {
     case ADD_DOSSIER:
       console.log("ADD_DOSSIER", action.payload);
-      let dossiers = [...state, action.payload];
+      let dossiers = [...state, {...action.payload, uuid:uuid()}];
       localStorage.setItem("dossiers",JSON.stringify(dossiers) )
       return dossiers;
 

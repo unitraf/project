@@ -1,0 +1,56 @@
+.profile {
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+   
+}
+
+.profile .entite{
+    display: flex;
+    flex-direction: column;
+border: none;
+/* margin-inline: 0; */
+height: fit-content;
+
+}
+
+.pr-row{
+display: flex;
+
+}
+
+.profile th {
+font-style: italic;
+}
+
+.legend{
+text-align: left;
+font-weight: normal;
+}
+
+
+.profile .attribut {
+    margin: 0;
+    min-height: 35px;
+    font-style: italic;
+}
+
+.attribut legend {
+    /* font-style: italic; */
+    padding-bottom: 5px;
+}
+
+.attribut span {
+    position: relative;
+    top: -7px;
+    
+    width: 100%;
+}
+
+.attribut.ml{
+margin-left: 5px;}
+
+/* legend + fieldset {
+     margin-left: 5px;
+    background-color: blue;}
+ */

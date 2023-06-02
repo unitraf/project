@@ -1,6 +1,7 @@
 import {
-  mdiDotsVertical,
+  mdiEye,
   mdiFolderPlusOutline,
+  mdiPlus,
   mdiPrinterSearch,
   mdiSquareEditOutline,
   mdiTrashCanOutline,
@@ -9,43 +10,30 @@ import {
 import Icon from "@mdi/react";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import Menu from "../../components/menu/Menu";
+import { Link, useNavigate } from "react-router-dom";
 import Modal from "../../components/modal/Modal";
 import Table from "../../components/table/Table";
-import { annee, mois } from "../../helpers/render";
-import { getSeries,groupBy } from "../../helpers/fonctions";
+import { annee, mois, prefixe } from "../../helpers/render";
+import { groupBy } from "../../helpers/fonctions";
 
 import "./dossiers.css";
 import Onglets from "../../components/onglet/Onglets";
-const link = [
-  {
-    icon: mdiFolderPlusOutline,
-    content: "Nouveau",
-    route: "newDossier",
-  },
-];
-const renderLink = (item, index) => (
-  <Link to={item.route} key={index}>
-    <div className="item">
-      <Icon path={item.icon} size={0.8} color="var(--main-color)" />
-      <span>{item.content}</span>
-    </div>
-  </Link>
-);
+import Title from "../../components/title/Title";
 const Dossiers = () => {
+  const navigate = useNavigate();
   const state = useSelector((state) => state);
   const { dossiers } = state;
-  const modes = groupBy(dossiers, "mode")
+  console.log(dossiers);
+  const modes = groupBy(dossiers, "mode");
   const [showModal, setShowModal] = useState(false);
 
   let headData = [
-    "N° Trans.",
+    "N° Transit",
     "Date",
-    "Réf. Client",
+    "Cmde. Client",
     "Destinataire",
     "Expéditeur",
-    "Nbr.",
+    "Colis",
     "Type",
     "Mode Transp.",
     "Action",
@@ -54,7 +42,7 @@ const Dossiers = () => {
 
   const renderBody = (item, index) => (
     <tr key={index}>
-      <td>{`${item.numero}/${annee(item.date)}`}</td>
+      <td>{`${ prefixe(item.date,item.numero)}`}</td>
       <td>{mois(item.date)}</td>
       <td>{item.reference ? item.reference : "-"}</td>
       <td>{item.client.nom}</td>
@@ -72,6 +60,15 @@ const Dossiers = () => {
         }}
       >
         <Icon
+          path={mdiEye}
+          size={0.6}
+          title="Dossier"
+          onClick={() =>
+            navigate(`/transit/dossier/${item.numero}`, { state: item })
+          }
+        />{" "}
+        /
+        <Icon
           path={mdiPrinterSearch}
           size={0.6}
           title="Aperçu"
@@ -88,7 +85,7 @@ const Dossiers = () => {
         /
         <Link
           to={`/transit/dossiers/${item.numero}/destroy`}
-          onClick={(e) => {}}
+          onClick={() => {}}
         >
           {" "}
           <Icon path={mdiTrashCanOutline} size={0.6} title="Supprimer" />{" "}
@@ -99,42 +96,38 @@ const Dossiers = () => {
 
   return (
     <div className="clients">
-      <div className="header-title">
-        Annuaire des dossiers (Historique/Client)
-        <span style={{ position: "fixed", right: 10 }}>
-          <Menu
-            icon={mdiDotsVertical}
-            size={0.8}
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              backgroundColor: "white",
-              marginTop: 5,
-            }}
-            content={link}
-            // customtoggle={() => renderUserToggle("admin****nif@sgs.com")}
-            render={(item, index) => renderLink(item, index)}
-          />
-        </span>
-      </div>
-<Onglets
-          // icon={ongletMenuIcon}
-          // menu={ongletOptions}
-          // active={setStatus}
-          ongletHeaders={Object.keys(modes)}
-          ongletBody={ Object.keys(modes).map( (item, index)=> <Table keys={index}
-            headData={headData}
-            renderHead={renderHead}
-            bodyData={modes[item]}
-            renderBody={renderBody}
-          />)}
+      <div className="card">
+        <Title
+          title="Encours (Instances)"
+          // link={link}
+          // renderLink={renderLink}
         />
-      {/* <Table
-        headData={headData}
-        renderHead={renderHead}
-        bodyData={dossiers}
-        renderBody={renderBody}
-      /> */}
+      </div>
+      <div className="card card-top-tab">
+        <Onglets
+        // Onhlets Tous > Tables dossiers
+          ongletHeaders={["Tous (*)", ...Object.keys(modes), <Icon path={mdiPlus} size={0.8} title="Nouveau dossier"  onClick={()=>{navigate('/transit/dossiers/newDossier/')}}/>]}
+          ongletBody={[
+            <Table
+              headData={headData}
+              renderHead={renderHead}
+              bodyData={dossiers}
+              renderBody={renderBody}
+            />,
+            // suites mapping mode de transport
+            ...Object.keys(modes).map((item, index) => (
+              <Table
+                keys={index}
+                headData={headData}
+                renderHead={renderHead}
+                bodyData={modes[item]}
+                renderBody={renderBody}
+              />
+            )),
+            <div>OOooops!il n'y a rien à voir, veuillez bien cliquer sur le plus pour ajouter un nouveau dossier.</div>
+          ]}
+        />
+      </div>
 
       <Modal showModal={showModal} setShowModal={setShowModal}>
         <div

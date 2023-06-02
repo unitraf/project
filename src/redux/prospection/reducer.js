@@ -1,5 +1,5 @@
 import {ADD_DEVIS,UPDATE_DEVIS, DELETE_DEVIS, ADD_PROSPECT, UPDATE_PROSPECT, DELETE_PROSPECT} from "./type";
-
+import { v4 as uuid } from "uuid";
 import data from "../../data/data_.json";
 const initialState = {
   Prospects: [],
@@ -17,7 +17,7 @@ const reducer = (
     // Prospect
     case ADD_PROSPECT:
       console.log("ADD_PROSPECT", action.payload);
-      let prospects = [...state.prospects, action.payload];
+      let prospects = [...state.prospects, {...action.payload, uuid:uuid()}];
       return { ...state, prospects };
 
     case DELETE_PROSPECT:

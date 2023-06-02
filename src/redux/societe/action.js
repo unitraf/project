@@ -1,5 +1,5 @@
 
-import { ADD_SOCIETE, ADD_REGLEMENT, ADD_BANQUE, UPDATE_BANQUE, DELETE_BANQUE, ADD_EXERCICE, DELETE_EXERCICE, UPDATE_EXERCICE, ADD_TYPE, DELETE_TYPE, UPDATE_TYPE } from "./type";
+import { ADD_SOCIETE, ADD_REGLEMENT,DELETE_REGLEMENT,UPDATE_REGLEMENT, ADD_BANQUE, UPDATE_BANQUE, DELETE_BANQUE, ADD_EXERCICE, DELETE_EXERCICE, UPDATE_EXERCICE, ADD_TYPE, DELETE_TYPE, UPDATE_TYPE } from "./type";
 
 // SOCIETE
 export const addSociete = (societe) => {
@@ -18,6 +18,22 @@ export const addReglement = (reglement) => {
   };
 };
 
+export const deleteReglement = (reglement) => {
+
+  return {
+    type: DELETE_REGLEMENT,
+    payload: reglement,
+  };
+};
+
+
+export const updateReglement = (reglement) => {
+  return {
+    type: UPDATE_REGLEMENT,
+    payload: reglement,
+  };
+};
+
 // BANQUE
 export const addBanque = (banque) => {
 
@@ -28,11 +44,11 @@ export const addBanque = (banque) => {
 };
 
 
-export const deleteBanque = (code) => {
+export const deleteBanque = (banque) => {
 
   return {
     type: DELETE_BANQUE,
-    payload: code,
+    payload: banque,
   };
 };
 
@@ -53,7 +69,6 @@ export const addExercice = (exercice) => {
 };
 
 
-
 export const updateExercice = (exercice) => {
   return {
     type: UPDATE_EXERCICE,
@@ -70,11 +85,11 @@ export const addType = (type) => {
   };
 };
 
-export const deleteType = (code) => {
+export const deleteType = (type) => {
 
   return {
     type: DELETE_TYPE,
-    payload: code,
+    payload: type,
   };
 };
 

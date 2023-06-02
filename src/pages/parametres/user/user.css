@@ -25,3 +25,25 @@
 
 
 /* Edit Client */
+
+.acces{
+ background-color: var(--main-color);
+ color: white;
+ padding: 5px;
+ border-radius: var(--border-radius);
+ margin-left: 1px;
+}
+
+.acces-x{
+cursor: pointer;
+}
+
+.acces-x:hover{
+color: red;
+}
+
+.autorisation{
+display: flex;
+justify-content: flex-start;
+align-items: center;
+}

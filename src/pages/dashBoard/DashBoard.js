@@ -1,7 +1,7 @@
-import { mdiDotsVertical, mdiPlus } from '@mdi/js';
+import { mdiChartBoxOutline } from '@mdi/js';
 import Icon from '@mdi/react';
 import React from 'react'
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import Area from '../../components/apex/Area';
 import Bar from '../../components/apex/Bar';
 import ChartUpdate from '../../components/apex/ChartUpdate';
@@ -9,52 +9,80 @@ import Column from '../../components/apex/Column';
 import Donut from '../../components/apex/Donut';
 import Line from '../../components/apex/Line';
 import RadialBar from '../../components/apex/RadialBar';
-import Menu from '../../components/menu/Menu';
 
 import './dashboard.css'
-const link = [
-  {
-    icon: mdiPlus,
-    content: "Nouveau",
-    route: "newClient",
-  },
-  {
-    icon: mdiPlus,
-    content: "Nouveau",
-    route: "newClient",
-  },
-];
-const renderLink = (item, index) => (
-  <Link to={item.route} key={index}>
-    <div className="item">
-      <Icon path={item.icon} size={0.8} color="var(--main-color)" />
-      <span>{item.content}</span>
-    </div>
-  </Link>
-);
+import Title from '../../components/title/Title';
 const DashBoard = () => {
   const location = useLocation()
   console.log(location);
+  const renderGrapheMenu = (menu)=>(
+   
+      <div className="dossier col-12">
+        {/* Listing */}
+        <fieldset className="card entite col-12 ">
+          <legend
+            className="card legend"
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "flex-end",
+            }}
+          >
+            <Icon
+              path={mdiChartBoxOutline}
+              size={0.8}
+              color={"var(--main-color)"}
+            />
+            <span className="i-legend">{` ${menu}`}</span>{" "}
+          </legend>
+          <div className="pr-row"></div>
+ ...............
+        </fieldset>
+      </div>
+  
+  );
+
+  const renderActivites   = 
+  <div className="dossier col-12">
+    {/* Listing */}
+    <fieldset className="card entite col-12 ">
+      <legend
+        className="card legend"
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "flex-end",
+        }}
+      >
+        <Icon
+          path={mdiChartBoxOutline}
+          size={0.8}
+          color={"var(--main-color)"}
+        />
+        <span className="i-legend">Activités </span>{" "}
+      </legend>
+      <div className="pr-row"></div>
+Notification Log...................
+    </fieldset>
+  </div>
   return (
     <div className="dashboard">
-    <div className="header-title">
-      Tableau de bord
-      <span style={{ position: "fixed", right: 10 }}>
-        <Menu
-          icon={mdiDotsVertical}
-          size={0.8}
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            backgroundColor: "white",
-            marginTop: 5,
-          }}
-          content={link}
-          // customtoggle={() => renderUserToggle("admin****nif@sgs.com")}
-          render={(item, index) => renderLink(item, index)}
-        />
-      </span>
-    </div>
+      <div className="card">
+        <Title title="Tableau de bord " />
+      </div>
+      <div  style={{display:"flex"}}>
+{renderGrapheMenu("Client")}
+{renderGrapheMenu("Transit")}
+{renderGrapheMenu("Douane")}
+{renderGrapheMenu("Facturation")}
+{renderGrapheMenu("Comptabilité")}
+
+
+</div>
+{/* activites */}
+
+{renderActivites}
+   <div className="card" style={{marginTop:10}}>
  <div className='chart' >
  
 
@@ -88,7 +116,7 @@ const DashBoard = () => {
     </fieldset>
 
  </div>
-   
+   </div>
 </div>
   )
 }

@@ -1,11 +1,15 @@
 import "./snackbar.css";
 
-export function displaySnack() {
+export function displaySnack(message="") {
   console.log("click");
   // Get the snackbar DIV
   let x = document.getElementById("snackbar");
 
   // Add the "show" class to DIV
+  if (message) {
+    x.innerHTML = message
+    
+  }
   x.className = "show";
 
   // After 3 seconds, remove the show class from DIV

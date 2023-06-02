@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Form, useNavigate } from "react-router-dom";
 import Listing from "../../components/listing/Listing";
-import { listType } from "../ddu/init";
+import { listType } from "../douane/ddu/init";
 import { listRegime } from "./init";
 import MinuteCalcul from "./MinuteCalcul";
 import "./minutes.css";

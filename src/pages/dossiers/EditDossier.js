@@ -4,6 +4,7 @@ import { useNavigate, useActionData, useParams } from "react-router-dom";
 import { deleteDossier, updateDossier } from "../../redux/dossier/action";
 import DossierForm from "./DossierForm";
 import "./dossiers.css";
+import Title from "../../components/title/Title";
 
 export async function updateDossierAction({ request, params }) {
   const formData = await request.formData();
@@ -36,21 +37,22 @@ const EditDossier = () => {
     params.destroyId &&
       actionData &&
       dispatch(deleteDossier(actionData)) &&
-      navigate(-1);
+      navigate("/transit/dossiers");
   }, [actionData, dispatch, navigate, params.destroyId]);
   useEffect(() => {
     if (actionData && params.updateId) {
-      let { client, t1, declaration, minute, bl,prestations, facture } = dossier;
+      let { client, t1, declaration, minute, bl, prestations, facture } =
+        dossier;
       let editDossier = {
         ...actionData,
         operateur: "admin",
         client,
-        t1:t1|| [],
-        declaration:declaration || [],
-        minute:minute|| [],
-        bl:bl || [],
-        prestations:prestations || [],
-        facture: facture || []
+        t1: t1 || [],
+        declaration: declaration || [],
+        minute: minute || [],
+        bl: bl || [],
+        prestations: prestations || [],
+        facture: facture || [],
       };
       console.log(editDossier);
       dispatch(updateDossier(editDossier)) && navigate(-1);
@@ -59,10 +61,14 @@ const EditDossier = () => {
 
   return (
     <div>
-      <div className="header-title form">
-        {params.destroyId ? "Suppression" : "Edition"}
-      </div>
+  
+      <div className="card" >
+     
+     <Title title =  {params.destroyId ? "Dossier (Suppression)" : "Dossier (Edition)"}/>
+     </div>
+      <div className="card card-top" >
       {dossier && <DossierForm dossier={dossier} setDossier={setDossier} />}
+      </div>
     </div>
   );
 };

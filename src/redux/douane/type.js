@@ -1,0 +1,8 @@
+// BUREAU
+export const ADD_BUREAU = 'ADD_BUREAU'
+export const DELETE_BUREAU = 'DELETE_BUREAU'
+export const UPDATE_BUREAU = 'UPDATE_BUREAU'
+
+
+
+

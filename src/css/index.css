@@ -141,6 +141,17 @@ h4 {
 
 }
 
+.card-top{
+
+margin: 10px 5px 0 5px;
+padding-top: 20px;
+}
+.card-top-tab{
+
+margin: 10px 5px 0 5px;
+
+}
+
 .card__body {
     font-size: 0.8rem;
 }
@@ -157,9 +168,9 @@ h4 {
     text-transform: capitalize;
 } */
 
-.card>div~div {
+/* .card>div~div {
     margin-top: 20px;
-}
+} */
 
 .card__footer {
     text-align: center;
@@ -407,7 +418,7 @@ fieldset table {
     border: 1px solid var(--main-color);
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow-light);
-    margin-bottom: 10px;
+    /* margin-bottom: 10px; */
     margin-top: 3px;
 
 }
@@ -448,3 +459,25 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
+textarea {
+    width: 100%;
+    padding: 5px 5px;
+    background-color: var(--main-bg);
+    box-shadow: var(--box-shadow-light);
+    /* box-shadow: var(--box-shadow); */
+        color: var(--txt-color);
+    /* text-transform: capitalize; */
+    /* font-weight: bold; */
+    margin-bottom: 15px;
+    border: none;
+    background: transparent;
+    border-radius: var(--border-radius);
+    /* border: 1px solid var(--main-color); */
+    outline: none;
+    text-align: left;
+    margin: 0 1px;
+
+}
+
+.i-legend{padding-left: 5px;}

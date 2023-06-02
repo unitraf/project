@@ -37,9 +37,11 @@ export const getSeries = (objet) =>
       return (series[index] = 0);
     }
   });
+  export const nombre = (nombre) =>
+  Math.round(parseFloat(nombre)).toLocaleString();
 
 export const getTotal = (arr = [], key) =>
-  arr.reduce((total, curr) => (total += parseFloat(curr[key])), 0);
+  arr.reduce((total, curr) => (total += parseFloat(`${curr[key]}`.replace(/\s/g, ""))), 0);
 
 export const getRegime = (regime) => {
   switch (regime) {

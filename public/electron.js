@@ -29,6 +29,7 @@ function createWindow() {
     width: 1200,
     height: 600,
     show: false,
+    // titleBarStyle:"hidden",
     icon: path.join(__dirname, "logo512.png"),
     webPreferences: {
       nodeIntegration: true,

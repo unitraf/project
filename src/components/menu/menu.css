@@ -28,7 +28,7 @@
     transition: transform 0.3s ease 0s;
 }
 
-.menu .menu_content.active {
+.menu .menu_content.active_m {
     transform: scale(1);
     transition: transform 0.5s var(--transition-cubic) 0s;
     padding-left: 0;
@@ -51,7 +51,7 @@
 
 
 
-.view_content.active {
+.view_content.active_m {
     transform: scale(1);
     transition: transform 0.5s var(--transition-cubic) 0s;
 }

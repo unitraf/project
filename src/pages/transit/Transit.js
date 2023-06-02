@@ -1,14 +1,24 @@
-import { mdiSquareEditOutline, mdiTrashCanOutline } from "@mdi/js";
+import {
+  mdiFileDocumentAlertOutline,
+  mdiFolderFileOutline,
+  mdiFolderOpenOutline,
+  mdiFolderPlusOutline,
+  mdiShippingPallet,
+  mdiSquareEditOutline,
+  mdiTrashCanOutline,
+} from "@mdi/js";
 import Icon from "@mdi/react";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Table from "../../components/table/Table";
 import { date, periode } from "../../helpers/render";
 import { getSeries, groupBy } from "../../helpers/fonctions";
 import Chart from "react-apexcharts";
 import "./transit.css";
 import Onglets from "../../components/onglet/Onglets";
+import Title from "../../components/title/Title";
+import Button from "../../components/buttonLink/Button";
 let headData = [
   "Date",
   "N° Ordre",
@@ -21,6 +31,28 @@ let headData = [
   "Action",
 ];
 
+const listCard = [
+  {
+    icon: mdiFolderPlusOutline,
+    link: "Nouveau",
+    route: "/transit/dossiers/newDossier/",
+  },
+  {
+    icon: mdiFolderOpenOutline,
+    link: "Dossiers",
+    route: "/transit/dossiers",
+  },
+  {
+    icon: mdiFolderFileOutline,
+    link: "Minutes",
+    route: "/transit/minutes",
+  },
+  {
+    icon: mdiShippingPallet,
+    link: "Livraisons",
+    route: "/transit/livraison",
+  },
+];
 
 const periodes = [
   "Janvier",
@@ -70,12 +102,12 @@ const renderBody = (item, index) => (
   </tr>
 );
 
-
 const Transit = () => {
+  const navigate = useNavigate();
   const state = useSelector((state) => state);
   const { dossiers } = state;
- const status = groupBy(dossiers, "status")
-console.log(status);
+  const status = groupBy(dossiers, "status");
+  console.log(status);
   const group_t1 = dossiers
     .map((dossier) =>
       dossier.t1.map((t1) => {
@@ -132,9 +164,41 @@ console.log(status);
 
   // Chart
   console.log("group_t1", group_bl);
+
+  const renderStatus = (status) => (
+    <div>
+      <div className="dossier col-12">
+        {/* Instances */}
+        <fieldset className="card entite col-12 ">
+          <legend
+            className="card legend"
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "flex-end",
+            }}
+          >
+            <Icon
+              path={mdiFileDocumentAlertOutline}
+              size={0.8}
+              color={"var(--main-color)"}
+            />
+            <span>{`${status}`}</span>{" "}
+          </legend>
+          <div className="pr-row"></div>
+        </fieldset>
+      </div>
+    </div>
+  );
   return (
     <div>
-      <div className="header-title">Suivis des expédition (Status)</div>
+      <div className="card">
+        <Title title="Expéditions (Tracking)" />
+      </div>
+
+      <Button listCard={listCard} />
+      {renderStatus("Exppéditions")}
+      {renderStatus("Livraisons")}
       <Chart
         options={chart.options}
         series={chart.series}
@@ -142,20 +206,21 @@ console.log(status);
         width="100%"
         height={200}
       />
-<Onglets
-          // icon={ongletMenuIcon}
-          // menu={ongletOptions}
-          // active={setStatus}
-          ongletHeaders={Object.keys(status)}
-          ongletBody={ Object.keys(status).map( (item, index)=> <Table keys={index}
+      <Onglets
+        // icon={ongletMenuIcon}
+        // menu={ongletOptions}
+        // active={setStatus}
+        ongletHeaders={Object.keys(status)}
+        ongletBody={Object.keys(status).map((item, index) => (
+          <Table
+            keys={index}
             headData={headData}
             renderHead={renderHead}
             bodyData={status[item]}
             renderBody={renderBody}
-          />)}
-        />
-
-     
+          />
+        ))}
+      />
     </div>
   );
 };

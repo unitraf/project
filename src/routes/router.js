@@ -1,4 +1,4 @@
-import { createBrowserRouter, createHashRouter } from "react-router-dom";
+import { createHashRouter } from "react-router-dom";
 import Root from "../pages/root/Root";
 import ErrorPage from "../pages/root/ErrorPage";
 import Transit from "../pages/transit/Transit";
@@ -17,23 +17,13 @@ import EditDossier, {
   updateDossierAction,
   destroyDossierAction,
 } from "../pages/dossiers/EditDossier";
-import T1 from "../pages/t1/T1";
-import NewT1, { NewT1Action } from "../pages/t1/NewT1";
-import EditT1, { destroyT1Action, updateT1Action } from "../pages/t1/EditT1";
-import NewDdu, { NewDduAction } from "../pages/ddu/NewDdu";
-import EditDdu, {
-  destroyDduAction,
-  updateDduAction,
-} from "../pages/ddu/EditDdu";
-import Ddu from "../pages/ddu/Ddu";
+
 import NewMinute, { NewMinuteAction } from "../pages/minutes/NewMinute";
 import EditMinute, {
   destroyMinuteAction,
   updateMinuteAction,
 } from "../pages/minutes/EditMinute";
-import Tarifs from "../pages/tarifs/Tarifs";
-import NewTarif, { newTarifAction } from "../pages/tarifs/NewTarif";
-import EditTarif from "../pages/tarifs/EditTarif";
+
 import BL from "../pages/bl/BL";
 import NewBL, { NewBLAction } from "../pages/bl/NewBL";
 import EditBL, { destroyBLAction, updateBLAction } from "../pages/bl/EditBL";
@@ -65,25 +55,55 @@ import GrandLivre from "../pages/compta/grandLivre/GrandLivre";
 import Bilan from "../pages/compta/bilan/Bilan";
 import Resultat from "../pages/compta/resultat/Resultat";
 import Sauvegarde from "../pages/parametres/Sauvegarde";
-import NewUser, { newUserAction } from "../pages/parametres/user/NewUser";
-import EditUser, {
-  destroyActionUser,
-  updateActionUser,
-} from "../pages/parametres/user/EditUser";
 import NewRubrique from "../pages/article/NewRubrique";
-import Banque from "../pages/parametres/societe/Banque";
-import EditSociete from "../pages/parametres/societe/EditSociete";
-import Reglement from "../pages/parametres/societe/Reglement";
-import Type from "../pages/clients/Type";
+
 import Douane from "../pages/douane/Douane";
-import Bureaux from "../pages/douane/Bureaux";
-import Exo from "../pages/douane/exo/Exo";
+import Bureaux from "../pages/douane/bureaux/Bureaux";
+import Exos from "../pages/douane/exo/Exos";
 import NewAvoir, { newAvoirAction } from "../pages/facturation/avoir/NewAvoir";
 import DestroyForm from "../pages/facturation/avoir/DestroyForm";
 import Devis from "../pages/facturation/devis/Devis";
 import NewDevis, { newDevisAction } from "../pages/facturation/devis/NewDevis";
 import Acompte from "../pages/facturation/acompte/Acompte";
-import NewAcompte, { newAcompteAction } from "../pages/facturation/acompte/NewAcompte";
+import NewAcompte, {
+  newAcompteAction,
+} from "../pages/facturation/acompte/NewAcompte";
+import ProfileClient from "../pages/clients/ProfileClient";
+import TypeClient from "../pages/clients/TypeClient";
+import Paiements from "../pages/clients/reglement/Paiements";
+import NewExo from "../pages/douane/exo/NewExo";
+import NewBureau from "../pages/douane/bureaux/NewBureau";
+import Dossier from "../pages/dossiers/Dossier";
+import EditTarif from "../pages/douane/tarifs/EditTarif";
+import NewTarif, { newTarifAction } from "../pages/douane/tarifs/NewTarif";
+import Tarifs from "../pages/douane/tarifs/Tarifs";
+import Ddu from "../pages/douane/ddu/Ddu";
+import NewDdu, { NewDduAction } from "../pages/douane/ddu/NewDdu";
+import EditDdu, {
+  destroyDduAction,
+  updateDduAction,
+} from "../pages/douane/ddu/EditDdu";
+import NewT1, { NewT1Action } from "../pages/douane/t1/NewT1";
+import EditT1, {
+  destroyT1Action,
+  updateT1Action,
+} from "../pages/douane/t1/EditT1";
+import T1 from "../pages/douane/t1/T1";
+import Bureau from "../pages/douane/bureaux/Bureau";
+import Exo from "../pages/douane/exo/Exo";
+import ReglementFiche from "../pages/clients/reglement/ReglementFiche";
+import NewReglements from "../pages/clients/reglement/NewReglements";
+import EnteteForm from "../pages/parametres/societe/entete/EnteteForm";
+import BanqueForm from "../pages/parametres/societe/banque/banqueForm";
+import ModeForm from "../pages/parametres/societe/reglement/ModeForm";
+import TypeForm from "../pages/parametres/societe/clientele/TypeForm";
+import UserForm from "../pages/parametres/user/UserForm";
+import Profile from "../pages/parametres/user/Profile";
+import Ecarts from "../pages/clients/ecart/Ecarts";
+import Echeanciers from "../pages/clients/echeancier/Echeanciers";
+import Relances from "../pages/clients/relance/Relances";
+import Transferts from "../pages/clients/transfert/Transferts";
+import Archives from "../pages/transit/archive/Archives";
 
 export const router = createHashRouter([
   {
@@ -106,6 +126,46 @@ export const router = createHashRouter([
         element: <Clients />,
       },
       {
+        path: "clients/profile/:id",
+        element: <ProfileClient />,
+      },
+      {
+        path: "clients/paiements",
+        element: <Paiements />,
+      },
+      {
+        path: "clients/ecarts",
+        element: <Ecarts />,
+      },
+      {
+        path: "clients/echeanciers",
+        element: <Echeanciers />,
+      },
+      {
+        path: "clients/relances",
+        element: <Relances />,
+      },
+      {
+        path: "clients/transferts",
+        element: <Transferts />,
+      },
+      {
+        path: "clients/paiements/newReglements",
+        element: <NewReglements />,
+      },
+      {
+        path: "clients/paiements/newReglements/:updateId",
+        element: <NewReglements />,
+      },
+      {
+        path: "clients/paiements/newReglements/:destroyId/destroy",
+        element: <NewReglements />,
+      },
+      {
+        path: "clients/paiements/reglement/:uuid",
+        element: <ReglementFiche />,
+      },
+      {
         path: "clients/newClient",
         element: <NewClient />,
         action: newClientAction,
@@ -124,7 +184,7 @@ export const router = createHashRouter([
       // Type client
       {
         path: "clients/type",
-        element: <Type />,
+        element: <TypeClient />,
       },
       // Douane
       {
@@ -143,23 +203,71 @@ export const router = createHashRouter([
         path: "douane/ddu",
         element: <Ddu />,
       },
+      // Bureaux
       {
         path: "douane/bureaux",
         element: <Bureaux />,
       },
       {
+        path: "douane/bureaux/bureau/:uuid",
+        element: <Bureau />,
+      },
+      {
+        path: "douane/newBureau",
+        element: <NewBureau />,
+      },
+      {
+        path: "douane/bureaux/newBureau",
+        element: <NewBureau />,
+      },
+      {
+        path: "douane/bureaux/newBureau/:updateId",
+        element: <NewBureau />,
+      },
+      {
+        path: "douane/bureaux/newBureau/:destroyId/destroy",
+        element: <NewBureau />,
+      },
+
+      // Exos
+      {
         path: "douane/exo",
+        element: <Exos />,
+      },
+      {
+        path: "douane/exo/exo/:uuid",
         element: <Exo />,
+      },
+      {
+        path: "douane/exo/newExo",
+        element: <NewExo />,
+      },
+      {
+        path: "douane/exo/newExo/:updateId",
+        element: <NewExo />,
+      },
+      {
+        path: "douane/exo/newExo/:destroyId/destroy",
+        element: <NewExo />,
       },
       // Transit
       {
         path: "transit",
         element: <Transit />,
       },
+      // Archives
+      {
+        path: "transit/archives",
+        element: <Archives />,
+      },
       // Dossiers
       {
         path: "transit/dossiers",
         element: <Dossiers />,
+      },
+      {
+        path: "transit/dossier/:uuid",
+        element: <Dossier />,
       },
       {
         path: "transit/dossiers/newDossier",
@@ -178,51 +286,51 @@ export const router = createHashRouter([
       },
       // T1
       {
-        path: "transit/t1",
+        path: "douane/t1",
         element: <T1 />,
       },
       {
-        path: "transit/t1/newT1",
+        path: "douane/t1/newT1",
         element: <NewT1 />,
         action: NewT1Action,
       },
       {
-        path: "transit/t1/newT1/:dossierId",
+        path: "douane/t1/newT1/:dossierId",
         element: <NewT1 />,
         action: NewT1Action,
       },
       {
-        path: "transit/t1/:updateId",
+        path: "douane/t1/:updateId",
         element: <EditT1 />,
         action: updateT1Action,
       },
       {
-        path: "transit/t1/:destroyId/destroy",
+        path: "douane/t1/:destroyId/destroy",
         element: <EditT1 />,
         action: destroyT1Action,
       },
       // DDu
       {
-        path: "transit/ddu",
+        path: "douane/ddu",
         element: <Ddu />,
       },
       {
-        path: "transit/ddu/newDdu",
+        path: "douane/ddu/newDdu",
         element: <NewDdu />,
         action: NewDduAction,
       },
       {
-        path: "transit/ddu/newDdu/:dossierId",
+        path: "douane/ddu/newDdu/:dossierId",
         element: <NewDdu />,
         action: NewDduAction,
       },
       {
-        path: "transit/ddu/:updateId",
+        path: "douane/ddu/:updateId",
         element: <EditDdu />,
         action: updateDduAction,
       },
       {
-        path: "transit/ddu/:destroyId/destroy",
+        path: "douane/ddu/:destroyId/destroy",
         element: <EditDdu />,
         action: destroyDduAction,
       },
@@ -262,17 +370,17 @@ export const router = createHashRouter([
         element: <Tarifs />,
       },
       {
-        path: "tarifs/newTarif",
+        path: "douane/tarifs/newTarif",
         element: <NewTarif />,
         action: newTarifAction,
       },
       {
-        path: "tarifs/:updateId",
+        path: "douane/tarifs/:updateId",
         element: <EditTarif />,
         action: newTarifAction,
       },
       {
-        path: "tarifs/:destroyId/destroy",
+        path: "douane/tarifs/:destroyId/destroy",
         element: <EditTarif />,
         action: newTarifAction,
       },
@@ -336,25 +444,21 @@ export const router = createHashRouter([
       {
         path: "facturation/devis",
         element: <Devis />,
-       
       },
       {
         path: "facturation/devis/newDevis",
         element: <NewDevis />,
-        action:newDevisAction
-       
+        action: newDevisAction,
       },
       // Acompte
       {
         path: "facturation/acompte",
         element: <Acompte />,
-       
       },
       {
         path: "facturation/acompte/newAcompte",
         element: <NewAcompte />,
-        action:newAcompteAction
-       
+        action: newAcompteAction,
       },
       // Prestation
       {
@@ -443,34 +547,48 @@ export const router = createHashRouter([
             element: <Societe />,
           },
           {
-            path: "societe/update",
-            element: <EditSociete />,
+            path: "societe/entete",
+            element: <EnteteForm />,
           },
+
           // Banque
           {
             path: "societe/newBanque",
-            element: <Banque />,
+            element: <BanqueForm />,
           },
           {
             path: "societe/newBanque/:updateId",
-            element: <Banque />,
+            element: <BanqueForm />,
           },
           {
-            path: "societe/newBanque/:updateId/destroy",
-            element: <Banque />,
+            path: "societe/newBanque/:destroyId/destroy",
+            element: <BanqueForm />,
           },
-          // Reglement
+          // Mode de Reglement
           {
             path: "societe/newReglement",
-            element: <Reglement />,
+            element: <ModeForm />,
           },
           {
             path: "societe/newReglement/:updateId",
-            element: <Reglement />,
+            element: <ModeForm />,
           },
           {
             path: "societe/newReglement/:destroyId/destroy",
-            element: <Reglement />,
+            element: <ModeForm />,
+          },
+          // Clientèle
+          {
+            path: "societe/newType",
+            element: <TypeForm />,
+          },
+          {
+            path: "societe/newType/:updateId",
+            element: <TypeForm />,
+          },
+          {
+            path: "societe/newType/:destroyId/destroy",
+            element: <TypeForm />,
           },
 
           // Users
@@ -480,18 +598,19 @@ export const router = createHashRouter([
           },
           {
             path: "users/newUser",
-            element: <NewUser />,
-            action: newUserAction,
+            element: <UserForm />,
+          },
+          {
+            path: "users/profile/:uuid",
+            element: <Profile />,
           },
           {
             path: "users/:updateId",
-            element: <EditUser />,
-            action: updateActionUser,
+            element: <UserForm />,
           },
           {
             path: "users/:destroyId/destroy",
-            element: <EditUser />,
-            action: destroyActionUser,
+            element: <UserForm />,
           },
           {
             path: "sauvegarde",

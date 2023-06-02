@@ -30,7 +30,7 @@ const Root = () => {
         <div className="root_content">
           <SideBar />
 
-          <div className="card col-12 outlet margin_side_bar">
+          <div className="col-12 outlet margin_side_bar">
             <Outlet />
           </div>
         </div>

@@ -1,5 +1,6 @@
 import { ADD_TARIF, DELETE_TARIF, UPDATE_TARIF } from "./type";
 import data from "../../data/data_.json";
+import { v4 as uuid } from "uuid";
 const initialState = {
   tarifs: [],
 };
@@ -9,7 +10,7 @@ const reducer = (state = data.tarifs ? data.tarifs : initialState.tarifs, action
   switch (action.type) {
     case ADD_TARIF:
       console.log("ADD_TARIF", action.payload);
-      let tarifs = [  ...state, action.payload];
+      let tarifs = [  ...state, {...action.payload, uuid:uuid()}];
       return tarifs;
 
     case DELETE_TARIF:

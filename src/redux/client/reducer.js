@@ -1,5 +1,6 @@
 import { ADD_CLIENT, DELETE_CLIENT, UPDATE_CLIENT } from "./type";
 import data from "../../data/data_.json";
+import { v4 as uuid } from "uuid";
 const initialState = {
   clients: [],
 };
@@ -11,7 +12,7 @@ const reducer = (
   switch (action.type) {
     case ADD_CLIENT:
       console.log("ADD_CLIENT", action.payload);
-      let clients = [...state, action.payload];
+      let clients = [...state,{ ...action.payload, uuid:uuid()}];
       return clients;
 
     case DELETE_CLIENT:
