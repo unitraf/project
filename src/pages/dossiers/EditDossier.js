@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useActionData, useParams } from "react-router-dom";
+import { useNavigate, useActionData, useParams, useLocation } from "react-router-dom";
 import { deleteDossier, updateDossier } from "../../redux/dossier/action";
 import DossierForm from "./DossierForm";
 import "./dossiers.css";
@@ -22,7 +22,10 @@ export async function destroyDossierAction({ request, params }) {
 const EditDossier = () => {
   const dispatch = useDispatch();
   const params = useParams();
+  const location = useLocation()
+  const { state} = location
   const actionData = useActionData();
+  console.log("state", state);
   const [dossier, setDossier] = useState(null);
   const navigate = useNavigate();
   const init = useSelector((state) => state.dossiers).find(

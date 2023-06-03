@@ -12,7 +12,7 @@ import EditClient, {
 import NewClient, { newClientAction } from "../pages/clients/NewClient";
 import Dossiers from "../pages/dossiers/Dossiers";
 import Minutes from "../pages/minutes/Minutes";
-import NewDossier, { newDossierAction } from "../pages/dossiers/NewDossier";
+import NewDossier from "../pages/dossiers/NewDossier";
 import EditDossier, {
   updateDossierAction,
   destroyDossierAction,
@@ -272,7 +272,12 @@ export const router = createHashRouter([
       {
         path: "transit/dossiers/newDossier",
         element: <NewDossier />,
-        action: newDossierAction,
+        // action: newDossierAction,
+      },
+      {
+        path: "transit/dossiers/newDossier/:uuid",
+        element: <NewDossier />,
+       
       },
       {
         path: "transit/dossiers/:updateId",
