@@ -1,5 +1,6 @@
 import {
   mdiDotsVertical,
+  mdiFileCertificateOutline,
   mdiPlus,
   mdiSquareEditOutline,
   mdiTrashCanOutline,
@@ -61,18 +62,59 @@ const Tarifs = () => {
       </td>
     </tr>
   );
-
-  return (
-    <div className="card">
-      <Title title="Tarif des Douanes" link={link} renderLink={renderLink} mb={10} />
-
-  
-      <Table
+  const renderTarif = (
+    <div className="" style={{ marginTop: 5 }}>
+      <div className="dossier  col-12">
+        {/*renderTarif */}
+        <fieldset className="card entite col-12 ">
+          <legend
+            className="card legend"
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "flex-end",
+            }}
+          >
+            <Icon
+              path={mdiFileCertificateOutline}
+              size={0.8}
+              color={"var(--main-color)"}
+            />
+            <span>SH 2022</span>{" "}
+            <Menu
+            icon={mdiDotsVertical}
+            size={0.7}
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              backgroundColor: "white",
+              marginTop: 5,
+              right: -5,
+            }}
+            content={link}
+            // customtoggle={() => renderUserToggle("admin****nif@sgs.com")}
+            render={renderLink}
+          />
+          </legend>
+         
+          <Table
         headData={headData}
         renderHead={renderHead}
         bodyData={tarifs}
         renderBody={renderBody}
       />
+          <div className="pr-row"></div>
+        </fieldset>
+      </div>
+    </div>
+  );
+  return (
+    <div>
+    <div className="card">
+      <Title title="Tarif des Douanes" />
+
+      </div>
+    {renderTarif}
     </div>
   );
 };

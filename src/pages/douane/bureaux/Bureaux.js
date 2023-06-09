@@ -1,5 +1,7 @@
 import {
+  mdiDotsVertical,
   mdiEye,
+  mdiFileDocumentCheckOutline,
   mdiPlus,
   mdiSquareEditOutline,
   mdiTrashCanOutline,
@@ -11,6 +13,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import Title from "../../../components/title/Title";
 import Table from "../../../components/table/Table";
+import Menu from "../../../components/menu/Menu";
 
 const link = [
   {
@@ -91,22 +94,61 @@ const Bureaux = () => {
       </td>
     </tr>
   );
-
-  return (
-    <div className="card">
-      <Title
-        title="Bureaux de dédouanement"
-        link={link}
-        renderLink={renderLink}
-        mb={10}
-      />
-
-      <Table
+  const renderBureaux = (
+    <div className="" style={{ marginTop: 5 }}>
+      <div className="dossier  col-12">
+        {/*renderBureaux */}
+        <fieldset className="card entite col-12 ">
+          <legend
+            className="card legend"
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "flex-end",
+            }}
+          >
+            <Icon
+              path={mdiFileDocumentCheckOutline}
+              size={0.8}
+              color={"var(--main-color)"}
+            />
+            <span>Listing</span>{" "}
+            <Menu
+            icon={mdiDotsVertical}
+            size={0.7}
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              backgroundColor: "white",
+              marginTop: 5,
+              right: -5,
+            }}
+            content={link}
+            // customtoggle={() => renderUserToggle("admin****nif@sgs.com")}
+            render={renderLink}
+          />
+          </legend>
+         
+          <Table
         headData={headData}
         renderHead={renderHead}
         bodyData={bureaux}
         renderBody={renderBody}
       />
+          <div className="pr-row"></div>
+        </fieldset>
+      </div>
+    </div>
+  );
+  return (
+    <div>
+    <div className="card">
+      <Title
+        title="Dédouanements"
+      
+      />
+</div>
+ {renderBureaux}
     </div>
   );
 };

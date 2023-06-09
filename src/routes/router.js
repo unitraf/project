@@ -13,10 +13,7 @@ import NewClient, { newClientAction } from "../pages/clients/NewClient";
 import Dossiers from "../pages/dossiers/Dossiers";
 import Minutes from "../pages/minutes/Minutes";
 import NewDossier from "../pages/dossiers/NewDossier";
-import EditDossier, {
-  updateDossierAction,
-  destroyDossierAction,
-} from "../pages/dossiers/EditDossier";
+import EditDossier from "../pages/dossiers/EditDossier";
 
 import NewMinute, { NewMinuteAction } from "../pages/minutes/NewMinute";
 import EditMinute, {
@@ -266,7 +263,7 @@ export const router = createHashRouter([
         element: <Dossiers />,
       },
       {
-        path: "transit/dossier/:uuid",
+        path: "transit/dossier/view/:uuid",
         element: <Dossier />,
       },
       {
@@ -274,20 +271,16 @@ export const router = createHashRouter([
         element: <NewDossier />,
         // action: newDossierAction,
       },
-      {
-        path: "transit/dossiers/newDossier/:uuid",
-        element: <NewDossier />,
-       
-      },
+     
       {
         path: "transit/dossiers/:updateId",
         element: <EditDossier />,
-        action: updateDossierAction,
+        // action: updateDossierAction,
       },
       {
         path: "transit/dossiers/:destroyId/destroy",
         element: <EditDossier />,
-        action: destroyDossierAction,
+        // action: destroyDossierAction,
       },
       // T1
       {

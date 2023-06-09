@@ -109,9 +109,9 @@ const Transit = () => {
         }}
       >
      
-          <Icon path={mdiEye} size={0.6} title="Editer"  onClick={()=>navigate(`/transit/dossier/${item.numero}`, {state:item})} />{" "}
+          <Icon path={mdiEye} size={0.6} title="Aperçu"  onClick={()=>navigate(`/transit/dossier/view/${item.numero}`, {state:item})} />{" "}
       /
-          <Icon path={mdiSquareEditOutline} size={0.6} title="Editer"  onClick={()=>navigate(`/transit/dossiers/newDossier/`, {state:item})} />{" "}
+          <Icon path={mdiSquareEditOutline} size={0.6} title="Editer"  onClick={()=>navigate(`/transit/dossiers/${item.numero}`, {state:item})} />{" "}
       
      
       </td>

@@ -45,7 +45,7 @@ const Menu = (props) => {
       </button>
 
       <section
-        style={props.content && props.style}
+        style={props.style}
         ref={menu_content_el}
         className="menu_content"
       >

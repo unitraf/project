@@ -66,6 +66,7 @@ const Clients = () => {
     <tr key={index}>
       <td>{`${item.compte}/${index+1}`}</td>
       <td>{item.nif}</td>
+      
       <td>{item.nom}</td>
       <td>{item.tel}</td>
       <td>{item.bp}</td>

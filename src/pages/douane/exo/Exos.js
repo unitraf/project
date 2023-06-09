@@ -3,6 +3,10 @@ import {
   mdiSquareEditOutline,
   mdiTrashCanOutline,
   mdiEye,
+  mdiFileDocumentCheckOutline,
+  mdiDotsVertical,
+  mdiLicense,
+  mdiCalendarAlertOutline,
 } from "@mdi/js";
 import Icon from "@mdi/react";
 import React from "react";
@@ -11,6 +15,8 @@ import { Link, useNavigate } from "react-router-dom";
 
 import Title from "../../../components/title/Title";
 import Table from "../../../components/table/Table";
+import Menu from "../../../components/menu/Menu";
+import { date } from "../../../helpers/render";
 const link = [
   {
     icon: mdiPlus,
@@ -30,12 +36,15 @@ const Exos = () => {
   const state = useSelector((state) => state);
   const navigate = useNavigate();
   const { exos } = state;
-
+console.log('====================================');
+console.log(exos);
+console.log('====================================');
   let headData = [
-    "Code",
     "Numéro",
+    "Code",
     "Date d'émiss°",
     "Date d'expirat°",
+    "Bureau",
     "Bénéficiaire",
     "Solde",
     "Statut",
@@ -45,10 +54,11 @@ const Exos = () => {
 
   const renderBody = (item, index) => (
     <tr key={index}>
-      <td>{item.code}</td>
       <td>{item.numero}</td>
-      <td>{item.emission}</td>
-      <td>{item.expiration}</td>
+      <td>{item.code}</td>
+      <td>{item.emission?date(item.emission):"-"}</td>
+      <td>{item.expiration?date(item.expiration):"-"}</td>
+      <td>{item.lieu ? item.lieu : "-"}</td>
       <td>{item.beneficiaire ? item.beneficiaire.nom : "-"}</td>
       <td>{"Solde?"}</td>
       <td>{"Statut"}</td>
@@ -90,17 +100,59 @@ const Exos = () => {
       </td>
     </tr>
   );
-
-  return (
-    <div className="card">
-      <Title title="Situation" link={link} renderLink={renderLink} mb={10} />
-
-      <Table
+  const renderExos = (
+    <div className="" style={{ marginTop: 5 }}>
+      <div className="dossier  col-12">
+        {/*renderExos */}
+        <fieldset className="card entite col-12 ">
+          <legend
+            className="card legend"
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "flex-end",
+            }}
+          >
+            <Icon
+              path={mdiLicense}
+              size={0.8}
+              color={"var(--main-color)"}
+            />
+            <span>Certificats</span>{" "}
+            <Menu
+            icon={mdiDotsVertical}
+            size={0.7}
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              backgroundColor: "white",
+              marginTop: 5,
+              right: -5,
+            }}
+            content={link}
+      
+            render={renderLink}
+          />
+          </legend>
+          <Table
         headData={headData}
         renderHead={renderHead}
         bodyData={exos}
         renderBody={renderBody}
       />
+          <div className="pr-row"></div>
+        </fieldset>
+      </div>
+    </div>
+  );
+
+  return (
+    <div>
+    <div className="card">
+      <Title title="Situation" />
+      </div>
+  {renderExos}
+ 
     </div>
   );
 };

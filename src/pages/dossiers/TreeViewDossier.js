@@ -1,19 +1,9 @@
 import React from "react";
 import TreeView, { expand } from "../../components/treeview/TreeView";
-import {
-  annee,
-  date,
-  mois,
-  nombre,
-  prefixe,
-  referenceDdu,
-} from "../../helpers/render";
+import { annee, date, nombre, referenceDdu } from "../../helpers/render";
 import { getTotal } from "../../helpers/fonctions";
 
 const TreeViewDossier = ({ dossier }) => {
-  console.log("====================================");
-  console.log(dossier);
-  console.log("====================================");
   const renderTreeView = (
     <ul>
       {/* t1 */}
@@ -71,6 +61,128 @@ const TreeViewDossier = ({ dossier }) => {
           </ul>
         </li>
       )}
+
+      {/* --listings Déclarations-- */}
+
+      <ul>
+        <li>
+          <span className="caret" onClick={expand}>
+            Déclarations
+          </span>
+          <ul className="nested ">
+            {/* <li>Reférence</li> */}
+            {dossier.declaration &&
+              dossier.declaration.map((decl, index) => (
+                <li key={index}>
+                  <span className="caret" onClick={expand}>
+                    {decl.repertoire
+                      ? `  ${referenceDdu(decl.regime, decl.reference)}-T${
+                          decl.t1.numero
+                        } Rep (${decl.repertoire}-${date(decl.createAt)})`
+                      : "-"}
+                  </span>
+                  <ul className="nested">
+                    <li>
+                      {" "}
+                      <table>
+                        <thead>
+                          <tr>
+                            <th>Bureau</th>
+
+                            <th>Id. Transport</th>
+                            <th>Quantité</th>
+                            <th>Poids</th>
+
+                            <th>Valeur</th>
+                            <th>Taxe</th>
+                            <th>Total</th>
+                          </tr>
+                        </thead>
+
+                        <tbody>
+                          {
+                            <tr>
+                              <td>{decl.bureau ? decl.bureau : "-"}</td>
+
+                              <td>{decl.t1 ? decl.t1.transport : "-"}</td>
+                              <td>
+                                {decl.nombre ? `${nombre(decl.nombre)}` : "-"}
+                              </td>
+                              <td>
+                                {decl.poids ? `${nombre(decl.poids)}` : "-"}
+                              </td>
+
+                              <td>
+                                {decl.valeur ? `${nombre(decl.valeur)}` : "-"}
+                              </td>
+                              <td>
+                                {decl.taxes ? `${nombre(decl.taxes)}` : "-"}
+                              </td>
+                              <td>
+                                {decl.total ? `${nombre(decl.total)}` : "-"}
+                              </td>
+                            </tr>
+                          }
+                        </tbody>
+                      </table>
+                    </li>
+                    {/* Listings articles */}
+                    <li>
+                      <span
+                        className="caret"
+                        onClick={expand}
+                      >{`Articles (${decl.articles.length})`}</span>
+                      <ul className="nested">
+                        <li>
+                          <table>
+                            <thead>
+                              <tr>
+                                <th>#</th>
+
+                                <th>Nombre</th>
+                                <th>Nature</th>
+                                <th>Position</th>
+                                <th>Désignation</th>
+                                <th>Poids</th>
+                                <th>Valeur</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {decl.articles.length > 0 &&
+                                decl.articles.map((article, index) => (
+                                  <tr key={index}>
+                                    <td>{index + 1}</td>
+                                    <td>
+                                      {article.nombre
+                                        ? nombre(article.nombre)
+                                        : "-"}
+                                    </td>
+                                    <td>{article.nature}</td>
+                                    <td>{article.position}</td>
+                                    <td>{article.designation}</td>
+                                    <td>
+                                      {article.poids
+                                        ? nombre(article.poids)
+                                        : "-"}
+                                    </td>
+                                    <td>
+                                      {article.valeur
+                                        ? nombre(article.valeur)
+                                        : "-"}
+                                    </td>
+                                  </tr>
+                                ))}
+                            </tbody>
+                          </table>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              ))}
+          </ul>
+        </li>
+      </ul>
       {/* Minutes */}
       {dossier.minute && (
         <li>
@@ -128,59 +240,7 @@ const TreeViewDossier = ({ dossier }) => {
           </ul>
         </li>
       )}
-      {/* Déclarations */}
-      {dossier.declaration && (
-        <li>
-          <span className="caret" onClick={expand}>
-            Déclarations
-          </span>
-          {/* listing Transit */}
-          <ul className="nested ">
-            <li className="caret">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Reférences</th>
 
-                    <th>Quantité</th>
-                    <th>Poids</th>
-                    <th>Position</th>
-                    <th>Désignation</th>
-                    <th>Valeur</th>
-                    <th>Taxe</th>
-                    <th>Total</th>
-                  </tr>
-                </thead>
-
-                <tbody>
-                  {dossier.declaration.map((item, index) => (
-                    <tr key={index}>
-                      <td>
-                        {item.repertoire
-                          ? `  ${referenceDdu(item.regime, item.reference)}-T${
-                              item.t1
-                            } Rep (${item.repertoire}-${date(item.createAt)})`
-                          : "-"}
-                      </td>
-
-                      <td>{item.nombre ? `${nombre(item.nombre)}` : "-"}</td>
-                      <td>{item.poids ? `${nombre(item.poids)}` : "-"}</td>
-                      <td>
-                        {item.position ? `${nombre(item.position)}` : "-"}
-                      </td>
-
-                      <td>{item.designation ? `${item.designation}` : "-"}</td>
-                      <td>{item.valeur ? `${nombre(item.valeur)}` : "-"}</td>
-                      <td>{item.taxes ? `${nombre(item.taxes)}` : "-"}</td>
-                      <td>{item.total ? `${nombre(item.total)}` : "-"}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </li>
-          </ul>
-        </li>
-      )}
       {/* Prestations */}
       {dossier.prestations && (
         <li>
@@ -193,9 +253,9 @@ const TreeViewDossier = ({ dossier }) => {
               <table>
                 <thead>
                   <tr>
-                    <th>Rubriques</th>
+                    <th>Rubrique</th>
 
-                    <th>Libellés</th>
+                    <th>Libellé</th>
                     <th>Quantité</th>
                     <th>Unité</th>
                     <th>Montant</th>

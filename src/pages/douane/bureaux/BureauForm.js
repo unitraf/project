@@ -45,7 +45,7 @@ const BureauForm = (props) => {
       <Form method="post" id="bureau-form" onSubmit={handleSubmit}>
         {/* ligne 1 */}
         <div className="col-12" style={{ display: "flex", marginBottom: 20 }}>
-          <div className="inputBox col-2">
+          <div className="inputBox col-1">
             <input
               type="text"
               maxLength={5}
@@ -58,7 +58,7 @@ const BureauForm = (props) => {
 
             <label htmlFor={"code"}>Code</label>
           </div>
-          <div className="inputBox col-6">
+          <div className="inputBox col-3">
             <input
               type="text"
               name="bureau"
@@ -68,9 +68,9 @@ const BureauForm = (props) => {
               required
             />
 
-            <label htmlFor={"bureau"}>Désignation bureau douane</label>
+            <label htmlFor={"bureau"}>Libellé</label>
           </div>
-          <div className="inputBox col-2">
+          <div className="inputBox col-1">
             <input
               type="text"
               name="region"

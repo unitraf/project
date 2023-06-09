@@ -1,7 +1,7 @@
 import {
   mdiDotsVertical,
   mdiEye,
-  mdiFileOutline,
+  mdiFileDocumentCheckOutline,
   mdiPlus,
   mdiSquareEditOutline,
   mdiTrashCanOutline,
@@ -9,7 +9,7 @@ import {
 import Icon from "@mdi/react";
 import React from "react";
 import { useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Menu from "../../../components/menu/Menu";
 import Table from "../../../components/table/Table";
 import "./ddu.css";
@@ -24,18 +24,11 @@ const link = [
     route: "newDdu",
   },
 ];
-const renderLink = (item, index) => (
-  <Link to={item.route} key={index}>
-    <div className="item">
-      <Icon path={item.icon} size={0.8} color="var(--main-color)" />
-      <span>{item.content}</span>
-    </div>
-  </Link>
-);
+
 const Ddu = () => {
   const navigate = useNavigate();
-  const state = useSelector((state) => state);
-  const { dossiers } = state;
+  const dossiers = useSelector((state) => state.dossiers);
+
   const declaration = dossiers
     .map((dossier) =>
       dossier.declaration.map((declaration, index) => {
@@ -48,7 +41,7 @@ const Ddu = () => {
       })
     )
     .flat(Infinity);
-
+console.log(declaration);
   let headData = [
     "Dossier",
     "Bureau",
@@ -88,16 +81,14 @@ const Ddu = () => {
           margin: 0,
         }}
       >
-       
-          <Icon
-            path={mdiEye}
-            size={0.6}
-            title="Aperçu"
-            onClick={() =>
-              navigate(`/douane/ddu/${item.reference}`, { state: item })
-            }
-          />{" "}
-       
+        <Icon
+          path={mdiEye}
+          size={0.6}
+          title="Aperçu"
+          onClick={() =>
+            navigate(`/douane/ddu/${item.reference}`, { state: item })
+          }
+        />{" "}
         /
         <Icon
           path={mdiSquareEditOutline}
@@ -119,22 +110,69 @@ const Ddu = () => {
       </td>
     </tr>
   );
+  const renderLink = (item, index) => (
+    <div className="item" key={index}    onClick={() => navigate(`${item.route}`)}>
+      <Icon
+        path={item.icon}
+        size={0.8}
+        color="var(--main-color)"
+     
+      />
+      <span>{item.content}</span>
+    </div>
+  );
+  const renderDdu = (
+    <div className="" style={{ marginTop: 5 }}>
+      <div className="dossier  col-12">
+        {/*renderDdu */}
+        <fieldset className="card entite col-12 ">
+          <legend
+            className="card legend"
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "flex-end",
+            }}
+          >
+            <Icon
+              path={mdiFileDocumentCheckOutline}
+              size={0.8}
+              color={"var(--main-color)"}
+            />
+            <span>Bon à enlever</span>{" "}
+            <Menu
+              icon={mdiDotsVertical}
+              size={0.7}
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                backgroundColor: "white",
+                marginTop: 5,
+                right: -5,
+              }}
+              content={link}
+              // customtoggle={() => renderUserToggle("admin****nif@sgs.com")}
+              render={renderLink}
+            />
+          </legend>
 
+          <Table
+            headData={headData}
+            renderHead={renderHead}
+            bodyData={declaration}
+            renderBody={renderBody}
+          />
+          <div className="pr-row"></div>
+        </fieldset>
+      </div>
+    </div>
+  );
   return (
-    <div className="card">
-      <Title
-        title="Déclarations (Détails)"
-        link={link}
-        renderLink={renderLink}
-        mb={10}
-      />
-
-      <Table
-        headData={headData}
-        renderHead={renderHead}
-        bodyData={declaration}
-        renderBody={renderBody}
-      />
+    <div className="">
+      <div className="card">
+        <Title title="DDU's (Détails)" />
+      </div>
+      {renderDdu}
     </div>
   );
 };

@@ -1,6 +1,5 @@
 import {
   mdiEye,
-  mdiFolderPlusOutline,
   mdiPlus,
   mdiPrinterSearch,
   mdiSquareEditOutline,
@@ -10,10 +9,10 @@ import {
 import Icon from "@mdi/react";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Modal from "../../components/modal/Modal";
 import Table from "../../components/table/Table";
-import { annee, mois, prefixe } from "../../helpers/render";
+import { mois, prefixe } from "../../helpers/render";
 import { groupBy } from "../../helpers/fonctions";
 
 import "./dossiers.css";
@@ -42,7 +41,8 @@ const Dossiers = () => {
 
   const renderBody = (item, index) => (
     <tr key={index}>
-      <td>{`${ prefixe(item.date,item.numero)}`}</td>
+    
+      <td>{`${prefixe(item.date, item.numero)}`}</td>
       <td>{mois(item.date)}</td>
       <td>{item.reference ? item.reference : "-"}</td>
       <td>{item.client.nom}</td>
@@ -64,32 +64,39 @@ const Dossiers = () => {
           size={0.6}
           title="Dossier"
           onClick={() =>
-            navigate(`/transit/dossier/${item.numero}`, { state: item })
+            navigate(`/transit/dossier/view/${item.numero}`, { state: item })
           }
         />{" "}
         /
         <Icon
           path={mdiPrinterSearch}
           size={0.6}
-          title="Aperçu"
+          title="Impression"
           onClick={() => {
             console.log("Preview for print", item);
             setShowModal(true);
           }}
         />{" "}
+        /{" "}
+        <Icon
+          path={mdiSquareEditOutline}
+          size={0.6}
+          title="Editer"
+          onClick={() =>
+            navigate(`/transit/dossiers/${item.numero}`, { state: item })
+          }
+        />{" "}
         /
-        <Link to={`/transit/dossiers/${item.numero}`}>
-          {" "}
-          <Icon path={mdiSquareEditOutline} size={0.6} title="Editer" />{" "}
-        </Link>
-        /
-        <Link
-          to={`/transit/dossiers/${item.numero}/destroy`}
-          onClick={() => {}}
-        >
-          {" "}
-          <Icon path={mdiTrashCanOutline} size={0.6} title="Supprimer" />{" "}
-        </Link>
+        <Icon
+          path={mdiTrashCanOutline}
+          size={0.6}
+          title="Supprimer"
+          onClick={() =>
+            navigate(`/transit/dossiers/${item.numero}/destroy`, {
+              state: item,
+            })
+          }
+        />{" "}
       </td>
     </tr>
   );
@@ -105,8 +112,19 @@ const Dossiers = () => {
       </div>
       <div className="card card-top-tab">
         <Onglets
-        // Onhlets Tous > Tables dossiers
-          ongletHeaders={["Tous (*)", ...Object.keys(modes), <Icon path={mdiPlus} size={0.8} title="Nouveau dossier"  onClick={()=>{navigate('/transit/dossiers/newDossier/')}}/>]}
+          // Onhlets Tous > Tables dossiers
+          ongletHeaders={[
+            "Tous (*)",
+            ...Object.keys(modes),
+            <Icon
+              path={mdiPlus}
+              size={0.8}
+              title="Nouveau dossier"
+              onClick={() => {
+                navigate("/transit/dossiers/newDossier/");
+              }}
+            />,
+          ]}
           ongletBody={[
             <Table
               headData={headData}
@@ -124,7 +142,10 @@ const Dossiers = () => {
                 renderBody={renderBody}
               />
             )),
-            <div>OOooops!il n'y a rien à voir, veuillez bien cliquer sur le plus pour ajouter un nouveau dossier.</div>
+            <div>
+              OOooops!il n'y a rien à voir, veuillez bien cliquer sur le plus
+              pour ajouter un nouveau dossier.
+            </div>,
           ]}
         />
       </div>

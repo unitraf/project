@@ -12,6 +12,7 @@ import "./ddu.css";
 
 import { updateDossier } from "../../../redux/dossier/action";
 import { displaySnack } from "../../../components/snackbar/SnackBar";
+import Title from "../../../components/title/Title";
 
 export async function updateDduAction({ request, params }) {
   const formData = await request.formData();
@@ -39,7 +40,7 @@ const EditDdu = () => {
 
   const dossier =
     ddu && dossiers.filter((dossier) => dossier.numero === ddu.dossier)[0];
-  console.log(dossier);
+
   useEffect(() => {
     setDdu(location.state);
   }, []);
@@ -81,10 +82,12 @@ const EditDdu = () => {
 
   return (
     <div>
-      <div className="header-title form">
-        {params.destroyId ? "Suppression" : "Edition"}
+      <div className="card">
+        <Title title={params.destroyId ? "Suppression" : "Edition"} />
       </div>
-      {ddu && <DduForm ddu={ddu} setDdu={setDdu} />}
+      <div className="card card-top">
+        {ddu && <DduForm ddu={ddu} setDdu={setDdu} dossier={dossier} />}
+      </div>
     </div>
   );
 };

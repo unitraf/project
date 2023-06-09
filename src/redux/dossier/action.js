@@ -10,19 +10,19 @@ export const addDossier = (Dossier) => {
   };
 };
 
-export const deleteDossier = (DossierId) => {
+export const deleteDossier = (Dossier) => {
   // fb.deleteDOSSIER(DossierId);
   return {
     type: DELETE_DOSSIER,
-    payload: DossierId,
+    payload: Dossier,
   };
 };
 
-export const updateDossier = (updateDossier) => {
+export const updateDossier = (Dossier) => {
   // fb.addDossier(updateDossier.numero, updateDossier);
-  console.log(updateDossier);
+  console.log(Dossier);
   return {
     type: UPDATE_DOSSIER,
-    payload: updateDossier,
+    payload: Dossier,
   };
 };

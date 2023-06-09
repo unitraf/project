@@ -1,29 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Form, useLocation, useNavigate, useParams } from "react-router-dom";
 import Listing from "../../../components/listing/Listing";
 import { listRegime } from "../../minutes/init";
-import { listBureau } from "../t1/init";
 import { listType, article as art } from "./init";
 import { getTotal, nombre, removeClassName } from "../../../helpers/fonctions";
 import { annee } from "../../../helpers/render";
 import { mdiPlusBox, mdiTrashCanOutline } from "@mdi/js";
+import { updateDossier } from "../../../redux/dossier/action";
 import Icon from "@mdi/react";
-import SnackBar from "../../../components/snackbar/SnackBar";
+import SnackBar, { displaySnack } from "../../../components/snackbar/SnackBar";
 
 const DduForm = (props) => {
-  const location = useLocation();
-  console.log("====================================");
-  console.log(location);
-  console.log("====================================");
   const params = useParams();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { ddu, setDdu } = props;
+  const { ddu, setDdu, dossier } = props;
   const state = useSelector((state) => state);
-  const { tarifs, exos, bureaux, dossiers } = state;
-  const t1 =
-    ddu.dossier &&
-    dossiers.filter((dossier) => dossier.numero === ddu.dossier)[0].t1;
+  const { tarifs, exos, bureaux } = state;
 
   const [article, setArticle] = useState(art);
   const poids = getTotal(ddu.articles, "poids");
@@ -31,22 +25,75 @@ const DduForm = (props) => {
   const colis = getTotal(ddu.articles, "nombre");
   const handleChange = (e) => {
     setDdu({ ...ddu, [e.target.name]: e.target.value });
-    // submit(e.currentTarget.form);
+    console.log(ddu);
+    
   };
   const handleChangeArticle = (e) => {
     setArticle({ ...article, [e.target.name]: e.target.value });
-    // submit(e.currentTarget.form);
+   
   };
+
   const handleSubmit = (e) => {
-    // e.preventDefault()
-    setDdu({ ...ddu, poids, valeur, nombre: colis });
+    e.preventDefault();
+  
+    if (params.updateId) {
+      displaySnack("Mis à jour déclaration");
+      let declaration = dossier.declaration.map((decl) => {
+        if (decl.reference === ddu.reference) {
+          return { ...ddu, poids, valeur, nombre: colis };
+        }
+        return decl;
+      });
+      let updateDeclaration = {
+        ...dossier,
+        status: "Douane",
+        declaration,
+      };
+      dispatch(updateDossier(updateDeclaration));
+    }
+    if (params.destroyId) {
+      displaySnack("Suppression déclaration");
+      let declaration = dossier.declaration.filter(
+        (decl) => decl.reference !== ddu.reference
+      );
+      let updateDeclaration = {
+        ...dossier,
+        status: "Douane",
+        declaration,
+      };
+      dispatch(updateDossier(updateDeclaration));
+    }
+    if (!params.updateId && !params.destroyId) {
+      let declaration = [
+        ...(dossier.declaration || []),
+        { ...ddu, poids, valeur, nombre: colis },
+      ];
+      let updateDeclaration = {
+        ...dossier,
+        status: "Douane",
+        declaration,
+      };
+      displaySnack(`Déclaration ajouter`);
+
+
+      dispatch(updateDossier(updateDeclaration));
+    }
+
+    setTimeout(() => {
+     
+      navigate(-1);
+    }, 3000);
   };
   const renderBureau = (item, index) => (
     <div
       className="item"
       key={index}
       onClick={() => {
-        setDdu({ ...ddu, bureau: `${item.bureau} (${item.code})`, douane:item });
+        setDdu({
+          ...ddu,
+          bureau: `${item.bureau} (${item.code})`,
+          douane: item,
+        });
       }}
     >
       <span className="col-4">{item.bureau}</span>
@@ -72,17 +119,6 @@ const DduForm = (props) => {
       }}
     >
       <span className="col-4">{`${annee(item.date)} - ${item.numero} `}</span>
-    </div>
-  );
-  const renderT1 = (item, index) => (
-    <div
-      className="item"
-      key={index}
-      onClick={() => {
-        setDdu({ ...ddu, t1: item });
-      }}
-    >
-      <span className="col-4">{`${item.numero}/${annee(item.date)} `}</span>
     </div>
   );
 
@@ -116,59 +152,14 @@ const DduForm = (props) => {
   useEffect(() => {
     params.dossierId && setDdu({ ...ddu, dossier: params.dossierId });
   }, [params.dossierId]);
+
   return (
     <>
       <Form method="post" id="ddu-form" onSubmit={handleSubmit}>
         {/* ligne 1** */}
 
         <div className="col-12" style={{ display: "flex", marginBottom: 20 }}>
-          <div className="inputBox col-2">
-            <input
-              type="number"
-              name="dossier"
-              value={ddu.dossier}
-              onChange={handleChange}
-              required
-            />
-            <label htmlFor={"dossier"}>N° Dossier</label>
-          </div>
-          <div className="inputBox col-2">
-            <input
-              type="text"
-              name="t1"
-              value={
-                ddu.t1 && ddu.t1.numero
-                  ? `${ddu.t1.numero}/${annee(ddu.t1.date)} `
-                  : "-"
-              }
-              onChange={() => {}}
-              required
-            />
-            <label htmlFor={"t1"}>N° T1</label>
-            <Listing
-              content={t1}
-              render={renderT1}
-              footer={
-                <Icon
-                  path={mdiPlusBox}
-                  size={0.8}
-                  onClick={() => {
-                    removeClassName("footer-item", "actif");
-                    navigate("/douane/bureaux/newBureau");
-                  }}
-                />
-              }
-            />
-          </div>
-          <div className="inputBox col-2">
-            <input
-              type="number"
-              name="repertoire"
-              value={ddu.repertoire}
-              onChange={handleChange}
-            />
-            <label htmlFor={"repertoire"}>N° Répertoire</label>
-          </div>
+       
           <div className="inputBox col-4">
             <input
               type="text"
@@ -193,9 +184,6 @@ const DduForm = (props) => {
               }
             />
           </div>
-        </div>
-        {/* ligne 2 */}
-        <div className="col-12" style={{ display: "flex", marginBottom: 20 }}>
           <div className="inputBox col-2">
             <input
               type="text"
@@ -209,7 +197,7 @@ const DduForm = (props) => {
             <label htmlFor={"regime"}>Régime</label>
             <Listing content={listRegime} render={renderRegime} />
           </div>
-          <div className="inputBox col-2">
+          <div className="inputBox col-1">
             <input
               type="number"
               name="reference"
@@ -220,7 +208,7 @@ const DduForm = (props) => {
             />
             <label htmlFor={"reference"}>Reférence</label>
           </div>
-          <div className="inputBox col-3">
+          <div className="inputBox col-2">
             <input
               type="date"
               name="date"
@@ -234,15 +222,15 @@ const DduForm = (props) => {
           <div className="inputBox col-2">
             <input
               type="number"
-              name="sommier"
-              autoComplete="off"
-              value={ddu.sommier}
+              name="repertoire"
+              value={ddu.repertoire}
               onChange={handleChange}
             />
-
-            <label htmlFor={"sommier"}>N° Sommier</label>
+            <label htmlFor={"repertoire"}>N° Répertoire</label>
           </div>
         </div>
+        {/* ligne 2 */}
+   
 
         {/* ligne 5 */}
 
@@ -435,7 +423,7 @@ const DduForm = (props) => {
           )}
         </div>
         {/* Articles */}
-        {ddu.articles&&ddu.articles.length > 0 && (
+        {ddu.articles && ddu.articles.length > 0 && (
           <fieldset
             className="card entite col-12 "
             style={{ marginInline: 0, display: "block" }}
@@ -502,11 +490,11 @@ const DduForm = (props) => {
               navigate(-1);
             }}
           >
-            Annuler
+            Quitter
           </button>
         </div>
       </Form>
-      <SnackBar message={`Nouveau client ajouter`} />
+      <SnackBar />
     </>
   );
 };

@@ -13,11 +13,16 @@ import Onglets from "../../components/onglet/Onglets";
 import TableT1 from "./TableT1";
 import { checkId, listMode, listType } from "./init";
 import { useDispatch } from "react-redux";
-import { addDossier } from "../../redux/dossier/action";
+import {
+  addDossier,
+  deleteDossier,
+  updateDossier,
+} from "../../redux/dossier/action";
 import TableDdu from "./TableDdu";
 import TableMinute from "./TableMinute";
 import { removeClassName } from "../../helpers/fonctions";
 import SnackBar, { displaySnack } from "../../components/snackbar/SnackBar";
+import { prefixe } from "../../helpers/render";
 
 const content = [
   {
@@ -45,42 +50,55 @@ const content = [
 const DossierForm = (props) => {
   const dispatch = useDispatch();
   const params = useParams();
-
+  console.log("params", params);
   const state = useSelector((state) => state);
   const [showModal, setShowModal] = useState(false);
 
   const navigate = useNavigate();
   const { clients, dossiers } = state;
   const { dossier, setDossier } = props;
-  // console.log(checkId(dossiers, "numero", "5"));
+
   const handleChange = (e) => {
     setDossier({ ...dossier, [e.target.name]: e.target.value });
-    // submit(e.currentTarget.form);
   };
-  const handleNada = ()=>{}
+  const handleNada = () => {};
 
-console.log(dossier);
+  console.log(dossier);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    let check = checkId(dossiers, "numero", dossier.numero)
+    let check = checkId(dossiers, "numero", dossier.numero);
 
-    if (check.length) {
-      console.log("Exist Déja",dossier.numero);
-      displaySnack("Numéro dossier présent dans la base de données!");
-    } else {
-      displaySnack("Nouveau dossier ajouter");
-      dispatch(addDossier(dossier));
-      setTimeout(() => {
-        navigate(-1);
-      }, 3000);
-      
+    if (params.updateId) {
+      displaySnack(
+        `Dossier (${prefixe(dossier.date, dossier.numero)})  mis à jour`
+      );
+      dispatch(updateDossier(dossier));
+    }
+    if (params.destroyId) {
+      displaySnack(
+        `Suppression dossier (${prefixe(dossier.date, dossier.numero)})`
+      );
+      dispatch(deleteDossier(dossier));
+    }
+    if (!params.updateId && !params.destroyId) {
+      // displaySnack("Dossier ajouter");
+      // dispatch(addDossier(dossier));
+
+      if (check.length) {
+        console.log("Exist Déja", dossier.numero);
+        displaySnack(`Doublon dossier ${prefixe(dossier.numero)}`);
+      } else {
+        displaySnack(
+          `Nouveau dossier (${prefixe(dossier.date, dossier.numero)}) ajouter `
+        );
+        dispatch(addDossier(dossier));
+      }
     }
 
-  
-
-    // setDossier({ ...dossier, [e.target.name]: e.target.value });
-    // submit(e.currentTarget.form);
+    setTimeout(() => {
+      navigate(-1);
+    }, 3000);
   };
 
   const menuContent = (item, index) => (
@@ -101,7 +119,6 @@ console.log(dossier);
         backgroundColor: "white",
       }}
       content={content}
-      // customtoggle={() => renderUserToggle("admin****nif@sgs.com")}
       render={(item, index) => menuContent(item, index)}
     />
   );
@@ -236,9 +253,15 @@ console.log(dossier);
               onChange={handleChange}
               required
             />
-            <label htmlFor={"document"}>{dossier.mode ==="Aérien"?"Document (LTA)":dossier.mode ==="Maritime"?"Document (BL)":"Document (Autres)"}</label>
+            <label htmlFor={"document"}>
+              {dossier.mode === "Aérien"
+                ? "Document (LTA)"
+                : dossier.mode === "Maritime"
+                ? "Document (BL)"
+                : "Document (Autres)"}
+            </label>
           </div>
-          
+
           <div className="inputBox col-3">
             <input
               type="text"
@@ -336,26 +359,28 @@ console.log(dossier);
             />
             <label htmlFor={"poids"}>Poids Brut</label>
           </div>
-          {dossier.mode&&dossier.mode ==="Aérien"&&<>
-          <div className="inputBox col-2">
-            <input
-              type="number"
-              name="poidsVol"
-              value={dossier.poidsVol}
-              onChange={handleChange}
-            />
-            <label htmlFor={"poids"}>Poids Vol.</label>
-          </div>
-          <div className="inputBox col-2">
-            <input
-              type="number"
-              name="volume"
-              value={dossier.volume}
-              onChange={handleChange}
-            />
-            <label htmlFor={"volume"}>Volume</label>
-          </div></>
-        }
+          {dossier.mode && dossier.mode === "Aérien" && (
+            <>
+              <div className="inputBox col-2">
+                <input
+                  type="number"
+                  name="poidsVol"
+                  value={dossier.poidsVol}
+                  onChange={handleChange}
+                />
+                <label htmlFor={"poids"}>Poids Vol.</label>
+              </div>
+              <div className="inputBox col-2">
+                <input
+                  type="number"
+                  name="volume"
+                  value={dossier.volume}
+                  onChange={handleChange}
+                />
+                <label htmlFor={"volume"}>Volume</label>
+              </div>
+            </>
+          )}
           <div className="inputBox col-2">
             <input
               type="hidden"
@@ -387,7 +412,7 @@ console.log(dossier);
         </div>
       </Form>
       {/* Onglets elements */}
-      {params.updateId && (
+      {/* {params.updateId && (
         <div className="col-12" style={{ display: "flex", marginTop: 20 }}>
           <Onglets
             // icon={ongletMenuIcon}
@@ -405,7 +430,7 @@ console.log(dossier);
             ]}
           />
         </div>
-      )}
+      )} */}
 
       <SnackBar />
     </>

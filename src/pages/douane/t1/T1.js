@@ -1,5 +1,8 @@
 import {
+  mdiChartBoxOutline,
   mdiDotsVertical,
+  mdiFileDocumentAlertOutline,
+  mdiFileDocumentCheckOutline,
   mdiPlus,
   mdiSquareEditOutline,
   mdiTrashCanOutline,
@@ -30,7 +33,7 @@ const renderLink = (item, index) => (
   </Link>
 );
 const T1 = () => {
-  const navigte = useNavigate();
+  const navigate = useNavigate();
   const state = useSelector((state) => state);
   const { dossiers } = state;
   const t1 = dossiers
@@ -39,14 +42,12 @@ const T1 = () => {
         return {
           ...t1,
           index,
-          dateDossier:dossier.date
+          dateDossier: dossier.date,
         };
       })
     )
     .flat(Infinity);
-console.log('====================================');
-console.log(t1);
-console.log('====================================');
+
   let headData = [
     "Dossier",
     "Références",
@@ -66,12 +67,11 @@ console.log('====================================');
     <tr key={index} title={`Dossier N° ${item.dossier}`}>
       <td>{prefixe(item.dateDossier, item.dossier)}</td>
       <td>{`T${item.numero} \u542b ${date(item.date)}`}</td>
-      <td>{item.sommier?`S${item.sommier}/${annee(item.date)}`:"-"}</td>
+      <td>{item.sommier ? `S${item.sommier}/${annee(item.date)}` : "-"}</td>
       <td>{item.burEntree}</td>
-      {/* <td>{item.numero}</td>
-      <td>{date(item.date)}</td> */}
-      <td>{item.provenance?item.provenance:"-"}</td>
-      <td>{item.transport?item.transport:"-"}</td>
+
+      <td>{item.provenance ? item.provenance : "-"}</td>
+      <td>{item.transport ? item.transport : "-"}</td>
       <td>{nombre(item.quantite)}</td>
       <td>{nombre(item.poids)}</td>
       <td>{item.position}</td>
@@ -89,7 +89,7 @@ console.log('====================================');
           size={0.6}
           title="Editer"
           onClick={() =>
-            navigte(`/douane/t1/${item.numero}`, { state: { item } })
+            navigate(`/douane/t1/${item.numero}`, { state: { item } })
           }
         />{" "}
         /
@@ -98,28 +98,63 @@ console.log('====================================');
           size={0.6}
           title="Supprimer"
           onClick={() =>
-            navigte(`/douane/t1/${item.numero}/destroy`, { state: { item } })
+            navigate(`/douane/t1/${item.numero}/destroy`, { state: { item } })
           }
         />{" "}
       </td>
     </tr>
   );
-
+  const renderT1 = (
+    <div className="" style={{ marginTop: 5 }}>
+      <div className="dossier  col-12">
+        {/*renderT1 */}
+        <fieldset className="card entite col-12 ">
+          <legend
+            className="card legend"
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "flex-end",
+            }}
+          >
+            <Icon
+              path={mdiFileDocumentAlertOutline}
+              size={0.8}
+              color={"var(--main-color)"}
+            />
+            <span>Transit (1)</span>{" "}
+            <Menu
+            icon={mdiDotsVertical}
+            size={0.7}
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              backgroundColor: "white",
+              marginTop: 5,
+              right: -5,
+            }}
+            content={link}
+            // customtoggle={() => renderUserToggle("admin****nif@sgs.com")}
+            render={renderLink}
+          />
+          </legend>
+          <Table
+            headData={headData}
+            renderHead={renderHead}
+            bodyData={t1}
+            renderBody={renderBody}
+          />
+          <div className="pr-row"></div>
+        </fieldset>
+      </div>
+    </div>
+  );
   return (
-    <div className="card">
-      <Title
-        title="Déclarations (Sommaire)"
-        link={link}
-        renderLink={renderLink}
-        mb={10}
-      />
-
-      <Table
-        headData={headData}
-        renderHead={renderHead}
-        bodyData={t1}
-        renderBody={renderBody}
-      />
+    <div className="">
+      <div className="card">
+        <Title title="Sommaires"  />
+      </div>
+      {renderT1}
     </div>
   );
 };
